@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import bbfWrittenLogo from './assets/bbfwritten.png'
 import './Upcoming.css';
+const API = import.meta.env.VITE_API_URL;
 
 type Concert = {
     _id?: string;
@@ -15,11 +16,11 @@ const Upcoming: React.FC = () => {
     const [concerts, setConcerts] = useState<Concert[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/concerts')
-            .then(res => res.json())
-            .then(data => setConcerts(data))
-            .catch(err => console.error('Error fetching concerts: ', err))
-        }, []);     
+      fetch(`${API}/concerts`)
+        .then(r => r.json())
+        .then(setConcerts)
+        .catch(err => console.error('Error fetching concerts:', err));
+    }, []);  
     console.log(concerts.length)
   
     return (

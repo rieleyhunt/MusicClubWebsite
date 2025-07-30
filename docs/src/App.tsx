@@ -1,11 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import bbfLogo from './assets/bbf.svg';
-import bbfWrittenLogo from './assets/bbfwritten.png'
-import Concert1 from './assets/Concert1.jpg';
-import Concert2 from './assets/Concert2.jpg';
-import Concert3 from './assets/Concert3.jpg';
-import Concert4 from './assets/Concert4.jpg';
 import './App.css';
 
 const App: React.FC = () => {
@@ -32,7 +26,7 @@ const App: React.FC = () => {
     <div className="app-container">
       {/*Add the logo*/}
       <div className="top-bar">
-        <img src={bbfWrittenLogo} alt="BBF Logo" className="bbfWrittenLogo" />
+        <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/bbf%20text%202.png' alt="BBF Logo" className="bbfWrittenLogo" />
 
         <div className="button-container">
             <Link to="/"><button className="button">Home</button></Link>
@@ -42,17 +36,17 @@ const App: React.FC = () => {
         </div>
       </div>
       <div className="logo-container">
-        <img src={Concert1} alt= "Concert1" className = "concert1" />
-        <img src={bbfLogo} alt = "Broken By Friday Logo" className = "logo" />
+        <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert1.jpg' alt= "Concert1" className = "concert1" />
+        <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/bbf.svg' alt = "Broken By Friday Logo" className = "logo" />
       </div>
       <div className="main-page">
         {/*Add the band name and description */}
         <h1 ref={headingRef} className={`we-are-broken-by-friday ${inView ? 'animate' : ''}`}>We are Broken By Friday...</h1>
         <p ref={headingRef} className={`ottawa-pop-punk ${inView ? 'animate' : ''}`}>Ottawa’s up and coming pop punk sensation</p>
         <div className="display-photos">
-          <img src={Concert2} alt="Concert2" className="concert2" />
-          <img src={Concert3} alt="Concert3" className="concert3" />
-          <img src={Concert4} alt="Concert4" className="concert4" />
+          <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert2.jpg' alt="Concert2" className="concert2" />
+          <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert3.jpg' alt="Concert3" className="concert3" />
+          <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert4.jpg' alt="Concert4" className="concert4" />
         </div>
       </div>
       <div className="footer">

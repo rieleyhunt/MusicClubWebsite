@@ -7,6 +7,7 @@ import App from './App.tsx'
 import Upcoming from './Upcoming.tsx'
 import Gallery from './Gallery.tsx'
 import Booking from './Booking.tsx'
+import AdminAddConcert from './AdminAddConcert.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/upcoming" element={<Upcoming />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/booking" element={<Booking />} />
+        <Route path="/admin/add" element={<AdminAddConcert />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
