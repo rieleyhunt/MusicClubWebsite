@@ -61,8 +61,8 @@
 }
 
 .concert-img {
-  width: 200px;          /* Fixed width */
-  height: 120px;         /* Fixed height */
+  width: auto;          /* Fixed width */
+  height: 200px;         /* Fixed height */
   object-fit: cover;     /* Crop while filling */
   border-radius: 8px;
   display: block;

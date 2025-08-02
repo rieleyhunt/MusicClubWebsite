@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import bbfWrittenLogo from './assets/bbfwritten.png'
+import bbfWrittenLogo from './assets/bbfwritten.png';
 import './Upcoming.css';
 const API = import.meta.env.VITE_API_URL;
 
@@ -10,6 +10,7 @@ type Concert = {
     date: string;
     location: string;
     photo: string;
+    url?: string;
 }
 
 const Upcoming: React.FC = () => {
@@ -25,6 +26,19 @@ const Upcoming: React.FC = () => {
   
     return (
     <div className="app-container">
+      <div
+        aria-hidden
+        style={{
+          position: 'fixed',       // stays in place on scroll
+          inset: 0,
+          backgroundImage: `url(https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/DSCN1928.JPG)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          filter: 'brightness(0.6)', // optional darken
+          zIndex: -1,
+        }}
+      />
       {/*Add the logo*/}
       <div className="top-bar">
         <img src={bbfWrittenLogo} alt="BBF Logo" className="bbfWrittenLogo" />
@@ -39,14 +53,28 @@ const Upcoming: React.FC = () => {
       <div className="upcoming-page">
         <h1 className="upcoming-shows">Upcoming Shows</h1>
         <div className="concerts-grid">
-            {concerts.map((concert) => (
-            <div key={concert._id} className="concert-card">
-                <img src={concert.photo} alt={concert.title} className="concert-img" />
-                <h2>{concert.title}</h2>
-                <p>{concert.date}</p>
-                <p>{concert.location}</p>
-            </div>
-            ))}
+          {concerts.map((concert) => {
+            const href = concert.url || '#';
+            const external = /^https?:\/\//i.test(href);
+
+            return (
+              <a
+                key={concert._id}
+                href={href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                className="concert-card-link"
+                aria-label={`View details for ${concert.title}`}
+              >
+                <div className="concert-card">
+                  <img src={concert.photo} alt={concert.title} className="concert-img" />
+                  <h2>{concert.title}</h2>
+                  <p>{concert.date}</p>
+                  <p>{concert.location}</p>
+                </div>
+              </a>
+            );
+          })}
         </div>
       </div>
     </div>

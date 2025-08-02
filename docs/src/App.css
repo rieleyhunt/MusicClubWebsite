@@ -198,7 +198,7 @@
 .concert2, .concert4 {
   padding: 10px;  /* Reduced padding to ensure fit within the container */
   position: relative;
-  width: calc(30% - 20px);  /* Subtracts padding to ensure even distribution */
+  width: calc(32% - 10px);  /* Subtracts padding to ensure even distribution */
   height: auto;  /* Maintains aspect ratio */
   max-height: 80%;  /* Restricts height but maintains aspect ratio */
 }

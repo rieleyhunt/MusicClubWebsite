@@ -36,7 +36,7 @@ const App: React.FC = () => {
         </div>
       </div>
       <div className="logo-container">
-        <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert1.jpg' alt= "Concert1" className = "concert1" />
+        <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/DSC09891.JPG' alt= "Concert1" className = "concert1" />
         <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/bbf.svg' alt = "Broken By Friday Logo" className = "logo" />
       </div>
       <div className="main-page">
@@ -44,9 +44,9 @@ const App: React.FC = () => {
         <h1 ref={headingRef} className={`we-are-broken-by-friday ${inView ? 'animate' : ''}`}>We are Broken By Friday...</h1>
         <p ref={headingRef} className={`ottawa-pop-punk ${inView ? 'animate' : ''}`}>Ottawa’s up and coming pop punk sensation</p>
         <div className="display-photos">
-          <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert2.jpg' alt="Concert2" className="concert2" />
-          <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert3.jpg' alt="Concert3" className="concert3" />
-          <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert4.jpg' alt="Concert4" className="concert4" />
+          <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert2.JPG' alt="Concert2" className="concert2" />
+          <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert3.JPG' alt="Concert3" className="concert3" />
+          <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert4.JPG' alt="Concert4" className="concert4" />
         </div>
       </div>
       <div className="footer">
