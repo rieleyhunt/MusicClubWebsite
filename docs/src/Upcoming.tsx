@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import bbfWrittenLogo from './assets/bbfwritten.png';
 import './Upcoming.css';
 const API = import.meta.env.VITE_API_URL;
 
@@ -41,7 +40,7 @@ const Upcoming: React.FC = () => {
       />
       {/*Add the logo*/}
       <div className="top-bar">
-        <img src={bbfWrittenLogo} alt="BBF Logo" className="bbfWrittenLogo" />
+        <img src={"https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/bbf%20text%202.png"} alt="BBF Logo" className="bbfWrittenLogo" />
 
         <div className="button-container">
             <Link to="/"><button className="button">Home</button></Link>
