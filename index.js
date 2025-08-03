@@ -141,5 +141,5 @@ app.post('/concerts', async (req, res) => {
 });
 
 // ----- Start server -----
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`API on :${PORT}`));
