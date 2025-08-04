@@ -192,6 +192,31 @@ if (!fs.existsSync(distPath)) {
   console.error('Expected dist path:', distPath);
 }
 
+// Direct static file serving - MUST be before express.static
+app.get('/assets/*', (req, res) => {
+  const filePath = path.join(distPath, req.url);
+  console.log(`Direct static file request: ${req.url}`);
+  console.log(`Looking for file at: ${filePath}`);
+  
+  if (fs.existsSync(filePath)) {
+    console.log(`File exists, serving directly: ${filePath}`);
+    const ext = path.extname(filePath);
+    
+    if (ext === '.css') {
+      res.setHeader('Content-Type', 'text/css');
+    } else if (ext === '.js') {
+      res.setHeader('Content-Type', 'application/javascript');
+    } else if (ext === '.svg') {
+      res.setHeader('Content-Type', 'image/svg+xml');
+    }
+    
+    res.sendFile(filePath);
+  } else {
+    console.log(`File not found: ${filePath}`);
+    res.status(404).json({ error: 'File not found' });
+  }
+});
+
 // Serve static files with proper MIME types and error handling
 app.use(express.static(distPath, {
   setHeaders: (res, filePath) => {
