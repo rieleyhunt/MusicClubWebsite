@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const r2Uploader = require('./r2Uploader');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 
@@ -139,6 +141,20 @@ app.get('/debug', (_, res) => {
   });
 });
 
+// Test route for CSS file
+app.get('/test-css', (_, res) => {
+  const cssPath = path.join(__dirname, 'dist', 'assets', 'index-Dal9t9E4.css');
+  console.log(`Testing CSS file at: ${cssPath}`);
+  console.log(`File exists: ${fs.existsSync(cssPath)}`);
+  
+  if (fs.existsSync(cssPath)) {
+    res.setHeader('Content-Type', 'text/css');
+    res.sendFile(cssPath);
+  } else {
+    res.status(404).json({ error: 'CSS file not found' });
+  }
+});
+
 // ----- Routes -----
 app.get('/concerts', async (req, res) => {
   try {
@@ -162,8 +178,6 @@ app.post('/concerts', async (req, res) => {
 });
 
 // ----- Static files and catch-all route (placed at the end) -----
-const path = require('path');
-
 // Add request logging for debugging
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
@@ -172,7 +186,6 @@ app.use((req, res, next) => {
 
 // Check if dist directory exists
 const distPath = path.join(__dirname, 'dist');
-const fs = require('fs');
 if (!fs.existsSync(distPath)) {
   console.error('ERROR: dist directory does not exist!');
   console.error('Current directory:', __dirname);
@@ -183,19 +196,23 @@ if (!fs.existsSync(distPath)) {
 app.use(express.static(distPath, {
   setHeaders: (res, filePath) => {
     console.log(`Serving static file: ${filePath}`);
+    console.log(`File extension: ${path.extname(filePath)}`);
     
     // Set proper MIME types
     if (filePath.endsWith('.css')) {
+      console.log(`Setting CSS MIME type for: ${filePath}`);
       res.setHeader('Content-Type', 'text/css');
     } else if (filePath.endsWith('.js')) {
+      console.log(`Setting JS MIME type for: ${filePath}`);
       res.setHeader('Content-Type', 'application/javascript');
     } else if (filePath.endsWith('.svg')) {
+      console.log(`Setting SVG MIME type for: ${filePath}`);
       res.setHeader('Content-Type', 'image/svg+xml');
     } else if (filePath.endsWith('.html')) {
+      console.log(`Setting HTML MIME type for: ${filePath}`);
       res.setHeader('Content-Type', 'text/html');
     }
-  },
-  fallthrough: false // Don't fall through to next middleware if file not found
+  }
 }));
 
 // Error handler for static files
