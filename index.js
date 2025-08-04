@@ -119,6 +119,20 @@ const Concert = mongoose.model('Concert', ConcertSchema);
 // ----- Health check -----
 app.get('/health', (_, res) => res.send('ok'));
 
+// Debug route to check file system (must be before static files)
+app.get('/debug', (_, res) => {
+  const distPath = path.join(__dirname, 'dist');
+  const indexPath = path.join(distPath, 'index.html');
+  
+  res.json({
+    currentDir: __dirname,
+    distExists: fs.existsSync(distPath),
+    indexExists: fs.existsSync(indexPath),
+    distContents: fs.existsSync(distPath) ? fs.readdirSync(distPath) : [],
+    env: process.env.NODE_ENV || 'development'
+  });
+});
+
 // ----- Routes -----
 app.get('/concerts', async (req, res) => {
   try {
@@ -150,26 +164,60 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serve static files with proper MIME types
-app.use(express.static(path.join(__dirname, 'dist'), {
+// Check if dist directory exists
+const distPath = path.join(__dirname, 'dist');
+const fs = require('fs');
+if (!fs.existsSync(distPath)) {
+  console.error('ERROR: dist directory does not exist!');
+  console.error('Current directory:', __dirname);
+  console.error('Expected dist path:', distPath);
+}
+
+// Serve static files with proper MIME types and error handling
+app.use(express.static(distPath, {
   setHeaders: (res, filePath) => {
     console.log(`Serving static file: ${filePath}`);
+    
+    // Set proper MIME types
     if (filePath.endsWith('.css')) {
       res.setHeader('Content-Type', 'text/css');
     } else if (filePath.endsWith('.js')) {
       res.setHeader('Content-Type', 'application/javascript');
     } else if (filePath.endsWith('.svg')) {
       res.setHeader('Content-Type', 'image/svg+xml');
+    } else if (filePath.endsWith('.html')) {
+      res.setHeader('Content-Type', 'text/html');
     }
-  }
+  },
+  fallthrough: false // Don't fall through to next middleware if file not found
 }));
+
+// Error handler for static files
+app.use((err, req, res, next) => {
+  if (err.code === 'ENOENT') {
+    console.error(`File not found: ${req.url}`);
+    return res.status(404).json({ error: 'File not found' });
+  }
+  next(err);
+});
 
 // More specific catch-all route for SPA
 app.get('/*', (req, res) => {
   console.log(`Serving index.html for route: ${req.url}`);
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  const indexPath = path.join(__dirname, 'dist', 'index.html');
+  
+  if (!fs.existsSync(indexPath)) {
+    console.error('ERROR: index.html does not exist at:', indexPath);
+    return res.status(500).json({ error: 'Frontend not built' });
+  }
+  
+  res.sendFile(indexPath);
 });
 
 // ----- Start server -----
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`API on :${PORT}`));
+const PORT = process.env.PORT || 8080; // AWS App Runner typically uses port 8080
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`API on :${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`Dist directory exists: ${fs.existsSync(distPath)}`);
+});
