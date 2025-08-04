@@ -1,7 +1,8 @@
 // AdminAddConcert.tsx
 import React, { useState } from 'react';
 
-const API = import.meta.env.VITE_API_URL; // e.g. http://localhost:3001 or https://api.yourdomain.com
+// Use relative URL if VITE_API_URL is not set (for App Runner deployment)
+const API = import.meta.env.VITE_API_URL || ''; // e.g. http://localhost:3001 or https://api.yourdomain.com
 
 export default function AdminAddConcert() {
   const [title, setTitle] = useState('');

@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Booking.css';
 
-const API = import.meta.env.VITE_API_URL;
+// Use relative URL if VITE_API_URL is not set (for App Runner deployment)
+const API = import.meta.env.VITE_API_URL || '';
 
 const Booking: React.FC = () => {
   const [form, setForm] = useState({

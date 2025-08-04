@@ -167,11 +167,13 @@ app.get('/test-css', (_, res) => {
 
 // ----- Routes -----
 app.get('/concerts', async (req, res) => {
+  console.log('GET /concerts called');
   try {
     const concerts = await Concert.find().sort({ date: 1 });
+    console.log(`Found ${concerts.length} concerts`);
     res.json(concerts);
   } catch (e) {
-    console.error(e);
+    console.error('Error in /concerts route:', e);
     res.status(500).json({ error: 'Failed to fetch concerts' });
   }
 });
