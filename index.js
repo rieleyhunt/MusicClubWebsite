@@ -238,7 +238,7 @@ app.get('/*', (req, res) => {
 });
 
 // ----- Start server -----
-const PORT = process.env.PORT || 3001; // Use 3001 as fallback for local development
+const PORT = process.env.PORT || 3001; // Match AWS App Runner configuration
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`API on :${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);

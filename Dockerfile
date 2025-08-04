@@ -12,7 +12,7 @@ RUN npm ci --only=production
 COPY . .
 
 # Expose the port your app listens on
-EXPOSE 8080
+EXPOSE 3001
 
 # Start the server
 CMD ["npm", "start"]
