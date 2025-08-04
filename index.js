@@ -4,6 +4,8 @@ const cors = require('cors');
 const r2Uploader = require('./r2Uploader');
 require('dotenv').config();
 
+console.log('DEBUG_URL is:', process.env.DEBUG_URL);
+
 console.log('R2 Key loaded?', !!process.env.R2_ACCESS_KEY_ID);
 
 const app = express();
