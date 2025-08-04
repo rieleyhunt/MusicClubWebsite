@@ -19,7 +19,15 @@ export default function AdminAddConcert() {
     if (file) {
       const form = new FormData();
       form.append('file', file);
-      const uploadUrl = API ? `${API}/r2/upload` : '/r2/upload';
+      // Ensure proper URL construction - handle empty API and edge cases
+      let uploadUrl;
+      if (!API || API === '') {
+        uploadUrl = '/r2/upload';
+      } else {
+        // Remove trailing slash from API if present
+        const cleanAPI = API.endsWith('/') ? API.slice(0, -1) : API;
+        uploadUrl = `${cleanAPI}/r2/upload`;
+      }
       const res = await fetch(uploadUrl, { method: 'POST', body: form });
       if (!res.ok) return setStatus('Upload failed');
       const { url } = await res.json();
@@ -27,7 +35,15 @@ export default function AdminAddConcert() {
     }
 
     setStatus('Saving concert…');
-    const saveUrl = API ? `${API}/concerts` : '/concerts';
+    // Ensure proper URL construction - handle empty API and edge cases
+    let saveUrl;
+    if (!API || API === '') {
+      saveUrl = '/concerts';
+    } else {
+      // Remove trailing slash from API if present
+      const cleanAPI = API.endsWith('/') ? API.slice(0, -1) : API;
+      saveUrl = `${cleanAPI}/concerts`;
+    }
     const save = await fetch(saveUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
