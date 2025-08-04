@@ -12,7 +12,6 @@ const images: string[] = [
   "https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/DSCN1901.JPG",
   "https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/DSCN1902.JPG",
   "https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/DSCN1907.JPG",
-  "https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/DSCN1909.JPG",
   "https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/DSCN1922.JPG",
   "https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/DSCN1925.JPG",
   "https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/DSCN1929.JPG",
