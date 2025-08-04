@@ -4,12 +4,20 @@ FROM node:20-alpine
 # Workdir inside the container
 WORKDIR /app
 
-# Install only production deps
+# Copy package files first for better caching
 COPY package*.json ./
-RUN npm ci --only=production
 
-# Copy the rest of the code
+# Install all dependencies (including dev dependencies for building)
+RUN npm ci
+
+# Copy the source code
 COPY . .
+
+# Build the frontend
+RUN npm run build
+
+# Remove dev dependencies to reduce image size
+RUN npm prune --production
 
 # Expose the port your app listens on
 EXPOSE 3001
