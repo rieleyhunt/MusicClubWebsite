@@ -71,20 +71,28 @@ function isEmail(v = "") {
 }
 
 app.post('/booking', bookingLimiter, async (req, res) => {
+  console.log('POST /booking called');
+  console.log('Request body:', req.body);
   try {
     const { name, email, message, date, venue, phone, hp } = req.body;
 
     // honeypot (spam bots fill hidden fields)
-    if (hp) return res.status(200).json({ ok: true });
+    if (hp) {
+      console.log('Honeypot triggered');
+      return res.status(200).json({ ok: true });
+    }
 
     // basic validation
     if (!name || !email || !message) {
+      console.log('Validation failed - missing required fields');
       return res.status(400).json({ error: 'name, email and message are required' });
     }
     if (!isEmail(email)) {
+      console.log('Validation failed - invalid email');
       return res.status(400).json({ error: 'invalid email' });
     }
 
+    console.log('Sending email for booking inquiry from:', name);
     const subject = `New Booking Inquiry from ${name}`;
     const html = `
       <h2>New Booking Inquiry</h2>
@@ -105,6 +113,7 @@ app.post('/booking', bookingLimiter, async (req, res) => {
       html,
     });
 
+    console.log('Email sent successfully');
     res.json({ ok: true });
   } catch (err) {
     console.error('Booking mail error:', err);
@@ -130,6 +139,15 @@ const Concert = mongoose.model('Concert', ConcertSchema);
 
 // ----- Health check -----
 app.get('/health', (_, res) => res.send('ok'));
+
+// Test API endpoint
+app.get('/api-test', (_, res) => {
+  res.json({ 
+    message: 'API is working',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
 
 // Debug route to check file system (must be before static files)
 app.get('/debug', (_, res) => {
@@ -189,12 +207,19 @@ app.post('/concerts', async (req, res) => {
   }
 });
 
-// ----- Static files and catch-all route (placed at the end) -----
-// Add request logging for debugging
+// Handle GET requests to /booking (should be POST only)
+app.get('/booking', (req, res) => {
+  console.log('GET /booking called - should be POST');
+  res.status(405).json({ error: 'Method not allowed. Use POST for booking inquiries.' });
+});
+
+// ----- Request logging (placed before API routes) -----
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
 });
+
+// ----- Static files and catch-all route (placed at the end) -----
 
 // Check if dist directory exists
 const distPath = path.join(__dirname, 'dist');

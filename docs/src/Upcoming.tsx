@@ -18,11 +18,13 @@ const Upcoming: React.FC = () => {
     const [concerts, setConcerts] = useState<Concert[]>([]);
 
     useEffect(() => {
-      fetch(`${API}/concerts`)
+      // Ensure proper URL construction - remove leading slash if API is empty
+      const url = API ? `${API}/concerts` : '/concerts';
+      fetch(url)
         .then(r => r.json())
         .then(setConcerts)
         .catch(err => console.error('Error fetching concerts:', err));
-    }, []);  
+    }, []);
     console.log(concerts.length)
   
     return (

@@ -26,7 +26,9 @@ const Booking: React.FC = () => {
     e.preventDefault();
     setStatus('sending');
     try {
-      const res = await fetch(`${API}/booking`, {
+      // Ensure proper URL construction - remove leading slash if API is empty
+      const url = API ? `${API}/booking` : '/booking';
+      const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)

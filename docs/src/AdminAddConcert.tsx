@@ -19,14 +19,16 @@ export default function AdminAddConcert() {
     if (file) {
       const form = new FormData();
       form.append('file', file);
-      const res = await fetch(`${API}/r2/upload`, { method: 'POST', body: form });
+      const uploadUrl = API ? `${API}/r2/upload` : '/r2/upload';
+      const res = await fetch(uploadUrl, { method: 'POST', body: form });
       if (!res.ok) return setStatus('Upload failed');
       const { url } = await res.json();
       photoUrl = url; // ← public R2 URL
     }
 
     setStatus('Saving concert…');
-    const save = await fetch(`${API}/concerts`, {
+    const saveUrl = API ? `${API}/concerts` : '/concerts';
+    const save = await fetch(saveUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, date, location, photo: photoUrl })
