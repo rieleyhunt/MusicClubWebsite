@@ -124,12 +124,18 @@ app.get('/debug', (_, res) => {
   const distPath = path.join(__dirname, 'dist');
   const indexPath = path.join(distPath, 'index.html');
   
+  let htmlContent = '';
+  if (fs.existsSync(indexPath)) {
+    htmlContent = fs.readFileSync(indexPath, 'utf8');
+  }
+  
   res.json({
     currentDir: __dirname,
     distExists: fs.existsSync(distPath),
     indexExists: fs.existsSync(indexPath),
     distContents: fs.existsSync(distPath) ? fs.readdirSync(distPath) : [],
-    env: process.env.NODE_ENV || 'development'
+    env: process.env.NODE_ENV || 'development',
+    htmlContent: htmlContent.substring(0, 500) + '...' // First 500 chars
   });
 });
 
@@ -215,9 +221,29 @@ app.get('/*', (req, res) => {
 });
 
 // ----- Start server -----
-const PORT = process.env.PORT || 8080; // AWS App Runner typically uses port 8080
+const PORT = process.env.PORT || 3001; // Use 3001 as fallback for local development
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`API on :${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`Dist directory exists: ${fs.existsSync(distPath)}`);
+  console.log(`PORT env var: ${process.env.PORT || 'not set'}`);
+  
+  // List all files in dist directory for debugging
+  if (fs.existsSync(distPath)) {
+    console.log('Dist directory contents:');
+    const listFiles = (dir, prefix = '') => {
+      const items = fs.readdirSync(dir);
+      items.forEach(item => {
+        const fullPath = path.join(dir, item);
+        const stat = fs.statSync(fullPath);
+        if (stat.isDirectory()) {
+          console.log(`${prefix}📁 ${item}/`);
+          listFiles(fullPath, prefix + '  ');
+        } else {
+          console.log(`${prefix}📄 ${item}`);
+        }
+      });
+    };
+    listFiles(distPath);
+  }
 });
