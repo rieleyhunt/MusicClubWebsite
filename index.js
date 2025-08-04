@@ -14,6 +14,7 @@ const app = express();
 // ----- CORS (one time) -----
 const allowedOrigins = [
   'http://localhost:5173',
+  'https://sidysm7pb7.us-east-1.awsapprunner.com',
   process.env.FRONTEND_URL,     // e.g. https://<amplify>.amplifyapp.com
   process.env.FRONTEND_URL_ALT, // e.g. https://your-frontend-domain.com
 ].filter(Boolean);
@@ -22,9 +23,18 @@ app.use(cors({
   origin(origin, cb) {
     // allow REST tools / SSR / health checks with no origin
     if (!origin) return cb(null, true);
-    return allowedOrigins.includes(origin)
-      ? cb(null, true)
-      : cb(new Error(`CORS blocked for origin: ${origin}`));
+    
+    // Check if origin is in allowed list
+    if (allowedOrigins.includes(origin)) {
+      return cb(null, true);
+    }
+    
+    // Allow any AWS App Runner subdomain
+    if (origin && origin.includes('awsapprunner.com')) {
+      return cb(null, true);
+    }
+    
+    return cb(new Error(`CORS blocked for origin: ${origin}`));
   },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-admin-token'],
