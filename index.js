@@ -143,10 +143,30 @@ app.post('/concerts', async (req, res) => {
 
 // ----- Static files and catch-all route (placed at the end) -----
 const path = require('path');
-app.use(express.static(path.join(__dirname, 'dist'))); // adjust path to frontend build output
+
+// Add request logging for debugging
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+
+// Serve static files with proper MIME types
+app.use(express.static(path.join(__dirname, 'dist'), {
+  setHeaders: (res, filePath) => {
+    console.log(`Serving static file: ${filePath}`);
+    if (filePath.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    } else if (filePath.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    } else if (filePath.endsWith('.svg')) {
+      res.setHeader('Content-Type', 'image/svg+xml');
+    }
+  }
+}));
 
 // More specific catch-all route for SPA
 app.get('/*', (req, res) => {
+  console.log(`Serving index.html for route: ${req.url}`);
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
