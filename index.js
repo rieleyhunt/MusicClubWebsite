@@ -4,7 +4,6 @@ const cors = require('cors');
 const r2Uploader = require('./r2Uploader');
 require('dotenv').config();
 
-console.log('DEBUG_URL is:', process.env.DEBUG_URL);
 
 console.log('R2 Key loaded?', !!process.env.R2_ACCESS_KEY_ID);
 
@@ -16,13 +15,6 @@ const allowedOrigins = [
   process.env.FRONTEND_URL,     // e.g. https://<amplify>.amplifyapp.com
   process.env.FRONTEND_URL_ALT, // e.g. https://your-frontend-domain.com
 ].filter(Boolean);
-
-const path = require('path');
-app.use(express.static(path.join(__dirname, 'dist'))); // adjust path to frontend build output
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
 
 app.use(cors({
   origin(origin, cb) {
@@ -147,6 +139,15 @@ app.post('/concerts', async (req, res) => {
     console.error(e);
     res.status(400).json({ error: 'Failed to save concert' });
   }
+});
+
+// ----- Static files and catch-all route (placed at the end) -----
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'dist'))); // adjust path to frontend build output
+
+// More specific catch-all route for SPA
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 // ----- Start server -----
