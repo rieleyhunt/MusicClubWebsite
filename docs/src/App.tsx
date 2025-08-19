@@ -2,6 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
 
+if (
+  import.meta.env.PROD && 
+  window.location.hostname === 'sidysm7pb7.us-east-1.awsapprunner.com'
+) {
+  window.location.href = 'https://www.brokenbyfriday.com' + window.location.pathname;
+}
 
 const App: React.FC = () => {
     const headingRef = useRef<HTMLHeadingElement>(null);
