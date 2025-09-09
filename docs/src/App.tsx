@@ -45,13 +45,13 @@ const App: React.FC = () => {
         </div>
       </div>
       <div className="logo-container">
-        <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/DSC09891.JPG' alt= "Concert1" className = "concert1" />
-        <img src='https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Carleton_Music_Club_Ravens_Only_Logo_1.png' alt = "Broken By Friday Logo" className = "logo" />
+        <img src='https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/collage1.jpg' alt= "Concert1" className = "concert1" />
+        <img src='https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Carleton_Music_Club_Ravens_Only_Logo_1.svg' alt = "Broken By Friday Logo" className = "logo" />
       </div>
       <div className="main-page">
         {/*Add the band name and description */}
-        <h1 ref={headingRef} className={`we-are-broken-by-friday ${inView ? 'animate' : ''}`}>We are Broken By Friday...</h1>
-        <p ref={headingRef} className={`ottawa-pop-punk ${inView ? 'animate' : ''}`}>Ottawa’s up and coming pop punk sensation</p>
+        <h1 ref={headingRef} className={`we-are-broken-by-friday ${inView ? 'animate' : ''}`}>We are the Official Carleton Music Club</h1>
+        <p ref={headingRef} className={`ottawa-pop-punk ${inView ? 'animate' : ''}`}>Fostering a community of both beginner and experienced musicians</p>
         <div className="display-photos">
           <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert2.JPG' alt="Concert2" className="concert2" />
           <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert3.JPG' alt="Concert3" className="concert3" />
@@ -59,7 +59,7 @@ const App: React.FC = () => {
         </div>
       </div>
       <div className="footer">
-        <p className="footer-text">© 2024 Broken By Friday. All rights reserved.</p>
+        <p className="footer-text">© 2025 Carleton Music Club. All rights reserved.</p>
       </div>
     </div>
   );
