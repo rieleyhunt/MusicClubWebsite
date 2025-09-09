@@ -23,6 +23,7 @@ const App: React.FC = () => {
         { threshold: 0.2 }
       );
     
+    
       observer.observe(node);
     
       return () => {
@@ -45,7 +46,7 @@ const App: React.FC = () => {
       </div>
       <div className="logo-container">
         <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/DSC09891.JPG' alt= "Concert1" className = "concert1" />
-        <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/bbf.svg' alt = "Broken By Friday Logo" className = "logo" />
+        <img src='https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Carleton_Music_Club_Ravens_Only_Logo_1.png' alt = "Broken By Friday Logo" className = "logo" />
       </div>
       <div className="main-page">
         {/*Add the band name and description */}
