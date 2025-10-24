@@ -5,7 +5,7 @@ import './App.css';
 
 const buttons = [
   { label: "Home", onClick: () => console.log("Home Clicked")}
-  { label: "Events, onClick: () => console.log("Events Clicked")}
+  { label: "Events", onClick: () => console.log("Events Clicked")}
 ]
 const App: React.FC = () => {
     const headingRef = useRef<HTMLHeadingElement>(null);
