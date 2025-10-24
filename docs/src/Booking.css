@@ -19,7 +19,7 @@
     display: flex;
     justify-content: space-between; /* logo left, buttons right */
     align-items: center;
-    background-color: #111;
+    background-color: #ffffff;
     padding: 0.5rem 2rem;
     width: 100%;
     position: sticky;
@@ -35,18 +35,20 @@
   
   .buttons-container {
     display: flex;
-    gap: 1rem;
+    gap: 10px;
     align-items: center;
     justify-content: flex-end;
     flex-wrap: nowrap;
     margin-right: 2rem;
     max-width: 100%;
+    /* space out the buttons if needed */
+    
   }
   
   .button {
     background-color: transparent;
-    color: #fff;
-    border: none;
+    color: #000000;
+    border: black 2px solid;
     padding: 1rem 1rem;
     font-size: 2rem;
     border-radius: 6px;

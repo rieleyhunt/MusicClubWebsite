@@ -2,14 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
 
-// Temporarily disabled redirect until brokenbyfriday.com is properly configured
-// if (
-//   import.meta.env.PROD && 
-//   window.location.hostname === 'sidysm7pb7.us-east-1.awsapprunner.com'
-// ) {
-//   window.location.href = 'https://www.brokenbyfriday.com' + window.location.pathname;
-// }
 
+const buttons = [
+  { label: "Home", onClick: () => console.log("Home Clicked")}
+  { label: "Events, onClick: () => console.log("Events Clicked")}
+]
 const App: React.FC = () => {
     const headingRef = useRef<HTMLHeadingElement>(null);
     const [inView, setInView] = useState(false);
