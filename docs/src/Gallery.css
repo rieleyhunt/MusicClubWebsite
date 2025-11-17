@@ -1,132 +1,129 @@
-@font-face {
-    font-family: 'Dreadful-Rot';
-    src: url('./fonts/Dreadful-Rot.otf') format('opentype');
-  }
-  
-  @font-face {
-    font-family: 'Dreadful-Regular';
-    src: url('./fonts/Dreadful-Regular.otf') format('opentype');
-  }
-  
-  .app-container {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch; /* or remove this line */
-    justify-content: flex-start;
-  }
-  
+* {
+  font-family: "Rubik", sans-serif;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* or remove this line */
+  justify-content: flex-start;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between; /* logo left, buttons right */
+  align-items: center;
+  background-color: #111;
+  padding: 0.5rem 2rem;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.bbfWrittenLogo {
+  height: auto;
+  width: 250px; /* or use max-width: 40vw if you want it responsive */
+  margin-right: auto;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  margin-right: 2rem;
+  max-width: 100%;
+}
+
+.button {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  padding: 1rem 1rem;
+  font-size: 2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* 📱 Responsive stack on smaller screens */
+@media (max-width: 768px) {
   .top-bar {
-    display: flex;
-    justify-content: space-between; /* logo left, buttons right */
+    flex-direction: column;
     align-items: center;
-    background-color: #111;
-    padding: 0.5rem 2rem;
-    width: 100%;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-  }
-  
-  .bbfWrittenLogo {
-    height: auto;
-    width: 250px; /* or use max-width: 40vw if you want it responsive */
-    margin-right: auto;
-  }
-  
-  .buttons-container {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    justify-content: flex-end;
-    flex-wrap: nowrap;
-    margin-right: 2rem;
-    max-width: 100%;
-  }
-  
-  .button {
-    background-color: transparent;
-    color: #fff;
-    border: none;
-    padding: 1rem 1rem;
-    font-size: 2rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    font-family: 'Dreadful-regular'
-  }
-  
-  /* 📱 Responsive stack on smaller screens */
-  @media (max-width: 768px) {
-    .top-bar {
-      flex-direction: column;
-      align-items: center;
-      padding: 0rem 2rem;
-      padding-top: 0.5rem;
-  
-    }
-  
-    .buttons-container {
-      flex-direction: column;
-      justify-content: center;
-      margin-top: 0.5rem;
-    }
-  
-    .button {
-      font-size: 1rem;
-    }
-  
-    .bbfWrittenLogo {
-      margin-right: 0;
-    }
-  }
-  
-  .button:hover {
-    transform: translateY(-5px);
-    background-color: #444;
+    padding: 0rem 2rem;
+    padding-top: 0.5rem;
   }
 
-  .gallery-page {
-    color: white;
-    padding: 2rem;
-    font-family: 'Dreadful-Regular';
+  .buttons-container {
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 0.5rem;
   }
-  /* Masonry layout via CSS columns */
+
+  .button {
+    font-size: 1rem;
+  }
+
+  .bbfWrittenLogo {
+    margin-right: 0;
+  }
+}
+
+.button:hover {
+  transform: translateY(-5px);
+  background-color: #444;
+}
+
+.gallery-page {
+  color: white;
+  padding: 2rem;
+}
+/* Masonry layout via CSS columns */
 .masonry {
-  column-count: 4;          /* default desktop columns */
+  column-count: 4; /* default desktop columns */
   column-gap: 1rem;
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;           /* center container */
+  margin: 0 auto; /* center container */
 }
 
 .masonry-item {
-  break-inside: avoid;      /* prevent images from breaking between columns */
+  break-inside: avoid; /* prevent images from breaking between columns */
   display: block;
   margin-bottom: 1rem;
   border-radius: 12px;
-  overflow: hidden;         /* rounded corners on the image */
-  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
-  transition: transform .2s ease, box-shadow .2s ease;
+  overflow: hidden; /* rounded corners on the image */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .masonry-item:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.35);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
 }
 
 .masonry-img {
   width: 100%;
-  height: auto;             /* keep natural aspect ratio */
+  height: auto; /* keep natural aspect ratio */
   display: block;
 }
 
 /* Responsive column counts */
 @media (max-width: 1200px) {
-  .masonry { column-count: 3; }
+  .masonry {
+    column-count: 3;
+  }
 }
 @media (max-width: 900px) {
-  .masonry { column-count: 2; }
+  .masonry {
+    column-count: 2;
+  }
 }
 @media (max-width: 600px) {
-  .masonry { column-count: 1; }
+  .masonry {
+    column-count: 1;
+  }
 }

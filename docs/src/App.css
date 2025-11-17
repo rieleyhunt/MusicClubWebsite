@@ -2,16 +2,7 @@
 
 * {
   box-sizing: border-box;
-}
-
-@font-face {
-  font-family: 'Dreadful-Rot';
-  src: url('./fonts/Dreadful-Rot.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'Dreadful-Regular';
-  src: url('./fonts/Dreadful-Regular.otf') format('opentype');
+  font-family: "Rubik", sans-serif;
 }
 
 .app-container {
@@ -61,7 +52,6 @@
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease;
-  font-family: 'Dreadful-regular'
 }
 
 /* 📱 Responsive stack on smaller screens */
@@ -71,7 +61,6 @@
     align-items: center;
     padding: 0rem 2rem;
     padding-top: 0.5rem;
-
   }
 
   .buttons-container {
@@ -88,7 +77,6 @@
     margin-right: 0;
   }
 }
-
 
 .button:hover {
   transform: translateY(-5px);
@@ -141,10 +129,9 @@
   }
 }
 
-.we-are-broken-by-friday {
+.we-are-carleton-music-club {
   color: white;
   font-size: 50px;
-  font-family: 'Dreadful-Regular';
   font-weight: 600;
   line-height: 44px;
   word-wrap: break-word;
@@ -154,16 +141,15 @@
   transition: all 1s ease-out;
 }
 
-.we-are-broken-by-friday.animate {
-    opacity: 1;
-    transform: translateX(0);
+.we-are-carleton-music-club.animate {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Ottawa’s up and coming pop punk sensation */
-.ottawa-pop-punk {
+.fostering-a-community {
   color: #828282;
   font-size: 30px;
-  font-family: 'Dreadful-Regular';
   font-weight: 500;
   line-height: 30px;
   word-wrap: break-word;
@@ -174,7 +160,7 @@
   transition: all 1s ease-out;
 }
 
-.ottawa-pop-punk.animate {
+.fostering-a-community.animate {
   opacity: 1;
   transform: translateX(0);
 }
@@ -182,31 +168,32 @@
 .display-photos {
   position: relative;
   width: 80vw;
-  height: auto;  /* Adjusted to auto to fit content */
-  min-height: 10vh;  /* Ensures minimum height */
+  height: auto; /* Adjusted to auto to fit content */
+  min-height: 10vh; /* Ensures minimum height */
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;  /* Adjusts spacing between images */
+  justify-content: space-around; /* Adjusts spacing between images */
   left: 50%;
   transform: translateX(-50%);
   background-color: transparent;
-  padding: 20px;  /* Optional: Adds padding around the container */
-  overflow: hidden;  /* Ensures no content spills outside */
+  padding: 20px; /* Optional: Adds padding around the container */
+  overflow: hidden; /* Ensures no content spills outside */
 }
 
-.concert2, .concert4 {
-  padding: 10px;  /* Reduced padding to ensure fit within the container */
+.concert2,
+.concert4 {
+  padding: 10px; /* Reduced padding to ensure fit within the container */
   position: relative;
-  width: calc(32% - 10px);  /* Subtracts padding to ensure even distribution */
-  height: auto;  /* Maintains aspect ratio */
-  max-height: 80%;  /* Restricts height but maintains aspect ratio */
+  width: calc(32% - 10px); /* Subtracts padding to ensure even distribution */
+  height: auto; /* Maintains aspect ratio */
+  max-height: 80%; /* Restricts height but maintains aspect ratio */
 }
 
 .concert3 {
-    padding: 10px;  /* Reduced padding to ensure fit within the container */
-    position: relative;
-    width: calc(33% + 10px);  /* Subtracts padding to ensure even distribution */
-    height: auto;  /* Maintains aspect ratio */
-    max-height: 80%;  /* Restricts height but maintains aspect ratio */  
+  padding: 10px; /* Reduced padding to ensure fit within the container */
+  position: relative;
+  width: calc(33% + 10px); /* Subtracts padding to ensure even distribution */
+  height: auto; /* Maintains aspect ratio */
+  max-height: 80%; /* Restricts height but maintains aspect ratio */
 }

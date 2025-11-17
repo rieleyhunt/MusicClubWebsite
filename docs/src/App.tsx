@@ -1,64 +1,111 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import './App.css';
-
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import "./App.css";
+import { Helmet } from "react-helmet-async";
 
 // const buttons = [
 //   { label: "Home", onClick: () => console.log("Home Clicked")},
 //   { label: "Events", onClick: () => console.log("Events Clicked")}
 // ]
 const App: React.FC = () => {
-    const headingRef = useRef<HTMLHeadingElement>(null);
-    const [inView, setInView] = useState(false);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const [inView, setInView] = useState(false);
 
-    useEffect(() => {
-      const node = headingRef.current;
-      if (!node) return;
-    
-      const observer = new IntersectionObserver(
-        ([entry]) => setInView(entry.isIntersecting),
-        { threshold: 0.2 }
-      );
-    
-    
-      observer.observe(node);
-    
-      return () => {
-        observer.unobserve(node);
-      };
-    }, []);
+  useEffect(() => {
+    const node = headingRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.2 }
+    );
+
+    observer.observe(node);
+
+    return () => {
+      observer.unobserve(node);
+    };
+  }, []);
 
   return (
-    <div className="app-container">
-      {/*Add the logo*/}
-      <div className="top-bar">
-        <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/bbf%20text%202.png' alt="BBF Logo" className="bbfWrittenLogo" />
+    <>
+      <Helmet>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </Helmet>
+      <div className="app-container">
+        {/*Add the logo*/}
+        <div className="top-bar">
+          <img
+            src="https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/bbf%20text%202.png"
+            alt="BBF Logo"
+            className="bbfWrittenLogo"
+          />
 
-        <div className="button-container">
-            <Link to="/"><button className="button">Home</button></Link>
-            <Link to="/upcoming"><button className="button">Upcoming</button></Link>
-            <Link to="/gallery"><button className="button">Gallery</button></Link>
-            <Link to="/booking"><button className="button">Booking</button></Link>
+          <div className="button-container">
+            <Link to="/">
+              <button className="button">Home</button>
+            </Link>
+            <Link to="/upcoming">
+              <button className="button">Upcoming</button>
+            </Link>
+            <Link to="/gallery">
+              <button className="button">Gallery</button>
+            </Link>
+            <Link to="/booking">
+              <button className="button">Booking</button>
+            </Link>
+          </div>
+        </div>
+
+        {/* PAGE CONTENT */}
+        <div className="main-page">
+          {/*Add the band name and description */}
+          <div className="display-photos">
+            <img
+              src="https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert2.JPG"
+              alt="Concert2"
+              className="concert2"
+            />
+            <img
+              src="https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert3.JPG"
+              alt="Concert3"
+              className="concert3"
+            />
+            <img
+              src="https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert4.JPG"
+              alt="Concert4"
+              className="concert4"
+            />
+          </div>
+          <h1
+            ref={headingRef}
+            className={`we-are-carleton-music-club ${inView ? "animate" : ""}`}
+          >
+            We are the Official Carleton Music Club
+          </h1>
+          <p
+            ref={headingRef}
+            className={`fostering-a-community ${inView ? "animate" : ""}`}
+          >
+            Fostering a community of both beginner and experienced musicians
+          </p>
+        </div>
+        <div className="footer">
+          <p className="footer-text">
+            © 2025 Carleton Music Club. All rights reserved.
+          </p>
         </div>
       </div>
-      <div className="logo-container">
-        <img src='https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/collage1.jpg' alt= "Concert1" className = "concert1" />
-        <img src='https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Carleton_Music_Club_Ravens_Only_Logo_1.svg' alt = "Broken By Friday Logo" className = "logo" />
-      </div>
-      <div className="main-page">
-        {/*Add the band name and description */}
-        <h1 ref={headingRef} className={`we-are-broken-by-friday ${inView ? 'animate' : ''}`}>We are the Official Carleton Music Club</h1>
-        <p ref={headingRef} className={`ottawa-pop-punk ${inView ? 'animate' : ''}`}>Fostering a community of both beginner and experienced musicians</p>
-        <div className="display-photos">
-          <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert2.JPG' alt="Concert2" className="concert2" />
-          <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert3.JPG' alt="Concert3" className="concert3" />
-          <img src='https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert4.JPG' alt="Concert4" className="concert4" />
-        </div>
-      </div>
-      <div className="footer">
-        <p className="footer-text">© 2025 Carleton Music Club. All rights reserved.</p>
-      </div>
-    </div>
+    </>
   );
 };
 
