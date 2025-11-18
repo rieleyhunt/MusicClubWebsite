@@ -4,7 +4,7 @@ import "./Upcoming.css";
 import { Helmet } from "react-helmet-async";
 
 // Use relative URL if VITE_API_URL is not set (for App Runner deployment)
-const API = import.meta.env.VITE_API_URL || "";
+const API = "";
 
 type Concert = {
   _id?: string;

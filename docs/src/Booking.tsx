@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet-async";
 import "./Booking.css";
 
 // Use relative URL if VITE_API_URL is not set (for App Runner deployment)
-const API = import.meta.env.VITE_API_URL || "";
+const API = "";
 
 const Booking: React.FC = () => {
   const [form, setForm] = useState({
