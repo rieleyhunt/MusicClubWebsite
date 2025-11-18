@@ -47,13 +47,13 @@
   z-index: 999;
 }
 
-.bbfWrittenLogo {
+.musicClubLogo {
   height: auto;
-  width: 250px; /* or use max-width: 40vw if you want it responsive */
+  width: 50px; /* or use max-width: 40vw if you want it responsive */
   margin-right: auto;
 }
 
-.buttons-container {
+.button-container {
   display: flex;
   gap: 1rem;
   align-items: center;
@@ -72,30 +72,6 @@
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-/* 📱 Responsive stack on smaller screens */
-@media (max-width: 768px) {
-  .top-bar {
-    flex-direction: column;
-    align-items: center;
-    padding: 0rem 2rem;
-    padding-top: 0.5rem;
-  }
-
-  .buttons-container {
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 0.5rem;
-  }
-
-  .button {
-    font-size: 1rem;
-  }
-
-  .bbfWrittenLogo {
-    margin-right: 0;
-  }
 }
 
 .button:hover {
@@ -154,6 +130,7 @@
   line-height: 44px;
   word-wrap: break-word;
   margin-left: 5%;
+  padding: 2rem;
   opacity: 0;
   transform: translateX(-20px);
   transition: all 1s ease-out;
@@ -173,6 +150,7 @@
   word-wrap: break-word;
   margin-top: 0px;
   margin-left: 5%;
+  padding: 0rem 1rem 1rem 2rem;
   opacity: 1;
   transform: translateX(-20px);
   transition: all 1s ease-out;
@@ -214,4 +192,34 @@
   width: calc(33% + 10px); /* Subtracts padding to ensure even distribution */
   height: auto; /* Maintains aspect ratio */
   max-height: 80%; /* Restricts height but maintains aspect ratio */
+}
+
+.footer {
+  background-color: #F8EDED;
+  color: #173B45;
+  text-align: center;
+}
+
+/* Responsive stack on smaller screens */
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: center;
+    padding: 0rem 2rem;
+    padding-top: 0.5rem;
+  }
+
+  .button-container {
+    justify-content: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .button {
+    font-size: 1rem;
+  }
+
+  .musicClubLogo {
+    margin-right: 0;
+  }
 }

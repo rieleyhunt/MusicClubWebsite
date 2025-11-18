@@ -121,21 +121,21 @@ app.post('/booking', bookingLimiter, async (req, res) => {
   }
 });
 
-// ----- Mongo connection (one time) -----
-mongoose.connect(process.env.MONGO_URI); // v7+: no options object needed
-mongoose.connection.on('connected', () => console.log('Mongo connected'));
-mongoose.connection.on('error', err => console.error('Mongo error:', err));
+// // ----- Mongo connection (one time) -----
+// mongoose.connect(process.env.MONGO_URI); // v7+: no options object needed
+// mongoose.connection.on('connected', () => console.log('Mongo connected'));
+// mongoose.connection.on('error', err => console.error('Mongo error:', err));
 
-// ----- Mongoose schema/model -----
-const ConcertSchema = new mongoose.Schema({
-  title: String,
-  date: String,     // consider Date if you want real date sorting
-  location: String,
-  photo: String,
-  url: String
-}, { timestamps: true });
+// // ----- Mongoose schema/model -----
+// const ConcertSchema = new mongoose.Schema({
+//   title: String,
+//   date: String,     // consider Date if you want real date sorting
+//   location: String,
+//   photo: String,
+//   url: String
+// }, { timestamps: true });
 
-const Concert = mongoose.model('Concert', ConcertSchema);
+// const Concert = mongoose.model('Concert', ConcertSchema);
 
 // ----- Health check -----
 app.get('/health', (_, res) => res.send('ok'));
