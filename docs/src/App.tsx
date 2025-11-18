@@ -45,9 +45,9 @@ const App: React.FC = () => {
         {/*Add the logo*/}
         <div className="top-bar">
           <img
-            src="https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/bbf%20text%202.png"
-            alt="BBF Logo"
-            className="bbfWrittenLogo"
+            src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Carleton_Music_Club_Ravens_Only_Logo_1.svg"
+            alt="Carl"
+            className="musicClubLogo"
           />
 
           <div className="button-container">
@@ -69,23 +69,10 @@ const App: React.FC = () => {
         {/* PAGE CONTENT */}
         <div className="main-page">
           {/*Add the band name and description */}
-          <div className="display-photos">
-            <img
-              src="https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert2.JPG"
-              alt="Concert2"
-              className="concert2"
-            />
-            <img
-              src="https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert3.JPG"
-              alt="Concert3"
-              className="concert3"
-            />
-            <img
-              src="https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Concert4.JPG"
-              alt="Concert4"
-              className="concert4"
-            />
+          <div className="hero">
+            
           </div>
+          
           <h1
             ref={headingRef}
             className={`we-are-carleton-music-club ${inView ? "animate" : ""}`}
