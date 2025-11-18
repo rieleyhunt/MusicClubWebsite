@@ -15,6 +15,7 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173',
   'https://sidysm7pb7.us-east-1.awsapprunner.com',
+  'https://musicclubwebsite.onrender.com',
   process.env.FRONTEND_URL,     // e.g. https://<amplify>.amplifyapp.com
   process.env.FRONTEND_URL_ALT, // e.g. https://your-frontend-domain.com
 ].filter(Boolean);
