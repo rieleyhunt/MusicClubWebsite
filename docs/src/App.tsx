@@ -44,24 +44,27 @@ const App: React.FC = () => {
       <div className="app-container">
         {/*Add the logo*/}
         <div className="top-bar">
-          <img
-            src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Carleton_Music_Club_Ravens_Only_Logo_1.svg"
-            alt="Carl"
-            className="musicClubLogo"
-          />
+          <div className="top-bar-logo">
+            <img
+              src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Carleton_Music_Club_Ravens_Only_Logo_1.svg"
+              alt="Carleon Music Club Logo"
+              className="musicClubLogo"
+              />
+            <h1><span>Carleton</span> Music Club</h1>
+          </div>
 
           <div className="button-container">
             <Link to="/">
-              <button className="button">Home</button>
+              <button className="button-navbar"><p>Home</p></button>
             </Link>
-            <Link to="/upcoming">
-              <button className="button">Upcoming</button>
+            <Link to="/Events">
+              <button className="button-navbar"><p>Events</p></button>
             </Link>
             <Link to="/gallery">
-              <button className="button">Gallery</button>
+              <button className="button-navbar"><p>Gallery</p></button>
             </Link>
             <Link to="/booking">
-              <button className="button">Booking</button>
+              <button className="button-navbar"><p>Booking</p></button>
             </Link>
           </div>
         </div>

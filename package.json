@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "npm run build && node index.js",
     "build": "cd docs && npm install && npm run build && cd .. && cp -r docs/dist dist",
     "build:win": "cd docs && npm install && npm run build && cd .. && xcopy /E /I docs\\dist dist",
     "dev:backend": "nodemon index.js",

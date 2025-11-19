@@ -10,9 +10,77 @@
 * {
   box-sizing: border-box;
   font-family: "Rubik", sans-serif;
+  color: #173B45;
   margin: 0;
   padding: 0;
 }
+
+a {
+  text-decoration: none;
+}
+
+/* NAV BAR GLOBAL */
+
+.button-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: 100%;
+  margin-left: 10%;
+
+}
+
+.button-navbar {
+  display: flex;
+  background-color: transparent;
+  color: #173B45;
+  border: solid 2px #173B45;
+  font-weight: bold;
+  box-shadow: 1.5px 1.5px #B43F3F;
+  padding: 1rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease, transform 0.2s ease;
+}
+
+
+.top-bar {
+  display: flex;
+  justify-content: space-between; /* logo left, buttons right */
+  align-items: center;
+  background-color: #F8EDED;
+  padding: 0.5rem 2rem;
+  width: 100%;
+  position: sticky;
+}
+
+.top-bar-logo {
+  display: flex;
+  gap: clamp(1rem, 4vw, 1.5rem);
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-bar-logo h1 {
+  font-size: clamp(1rem, 4vw, 2rem);
+  font-weight: 1000;
+  max-width: 50vw;
+}
+
+.button p {
+  /* font-size: 31r */
+}
+
+.button-navbar:hover {
+  transform: translateY(-5px);
+  background-color: #F8EDED;
+  box-shadow: 3px 3px #B43F3F;
+  transition: all 0.2s ease, transform 0.2s ease;
+}
+
+/* MAIN PAGE */
 
 .app-container {
   position: relative; /* Parent relative positioning */
@@ -26,7 +94,7 @@
 
 .hero {
   background-image: url("https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/185f7ffe-e42c-4537-92ca-f7562645a4a5%20-%20Edited.jpg");
-  background-position: center;
+  background-position: 20% center;
   background-size: cover;
   display: flex;
   padding: 0;
@@ -35,43 +103,24 @@
   height: 80vh;
 }
 
-.top-bar {
-  display: flex;
-  justify-content: space-between; /* logo left, buttons right */
-  align-items: center;
-  background-color: #F8EDED;
-  padding: 0.5rem 2rem;
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-}
-
 .musicClubLogo {
   height: auto;
   width: 50px; /* or use max-width: 40vw if you want it responsive */
   margin-right: auto;
 }
 
-.button-container {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  justify-content: flex-end;
-  flex-wrap: nowrap;
-  margin-right: 2rem;
-  max-width: 100%;
-}
-
 .button {
   background-color: transparent;
   color: #F8EDED;
   border: none;
-  padding: 1rem 1rem;
-  font-size: 2rem;
+  padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.button p {
+  /* font-size: 31r */
 }
 
 .button:hover {
@@ -213,6 +262,7 @@
     justify-content: center;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+    margin-left: 0rem;
   }
 
   .button {
@@ -221,5 +271,15 @@
 
   .musicClubLogo {
     margin-right: 0;
+  }
+}
+
+@media (max-width: 405px) {
+  .button-container {
+    gap: 0.2rem;
+    padding: 0;
+  }
+  .button-navbar {
+    padding: clamp(0.1rem, 0.8rem, 0.8rem)
   }
 }

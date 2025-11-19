@@ -1,0 +1,79 @@
+
+.colors {
+  color: #F8EDED;
+  color: #FF8225;
+  color: #B43F3F;
+  color: #173B45;
+}
+
+.app-container {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+.Events-page {
+  text-align: center;
+  background-color: #F8EDED;
+}
+
+.events-introduction {
+  background-image: url("https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/671123a3-b7ec-46c8-9627-739cf9384730%20-%20Edited%20(1).jpg");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 80vh;
+
+}
+.Events {
+}
+
+.concerts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding-top: 2rem;
+}
+
+.concert-card {
+  background-color: #1e1e1e;
+  color: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s;
+  text-align: center;
+}
+
+.concert-card h2,
+.concert-card p {
+  margin: 0.5rem 0;
+}
+
+.concert-card:hover {
+  transform: translateY(-5px);
+}
+
+.concert-img {
+  width: auto; /* Fixed width */
+  height: 200px; /* Fixed height */
+  object-fit: cover; /* Crop while filling */
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto 1rem; /* Center horizontally with spacing below */
+}
+
+
+/* 📱 Responsive stack on smaller screens */
+@media (max-width: 768px) {
+  
+}
