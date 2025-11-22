@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Events.css";
 import { Helmet } from "react-helmet-async";
 import { autoShrinkText } from "./autoshrink";
 // Use relative URL if VITE_API_URL is not set (for App Runner deployment)
-const API = import.meta.env.VITE_API_URL || "";
+// const API = import.meta.env.VITE_API_URL || "";
 
-type Concert = {
-  _id?: string;
-  title: string;
-  date: string;
-  location: string;
-  photo: string;
-  url?: string;
-};
+// type Concert = {
+//   _id?: string;
+//   title: string;
+//   date: string;
+//   location: string;
+//   photo: string;
+//   url?: string;
+// };
 
 const Events: React.FC = () => {
   // const [concerts, setConcerts] = useState<Concert[]>([]);
