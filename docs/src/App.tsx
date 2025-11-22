@@ -50,7 +50,7 @@ const App: React.FC = () => {
               alt="Carleon Music Club Logo"
               className="musicClubLogo"
               />
-            <h1><span>Carleton</span> Music Club</h1>
+            <h1>Carleton Music Club</h1>
           </div>
 
           <div className="button-container">
@@ -76,24 +76,27 @@ const App: React.FC = () => {
             
           </div>
           
-          <h1
-            ref={headingRef}
-            className={`we-are-carleton-music-club ${inView ? "animate" : ""}`}
-          >
-            We are the Official Carleton Music Club
-          </h1>
-          <p
-            ref={headingRef}
-            className={`fostering-a-community ${inView ? "animate" : ""}`}
-          >
-            Fostering a community of both beginner and experienced musicians
-          </p>
-        </div>
-        <div className="footer">
-          <p className="footer-text">
-            © 2025 Carleton Music Club. All rights reserved.
-          </p>
-        </div>
+          <div className="main-content">
+            <h1
+              ref={headingRef}
+              className={`we-are-carleton-music-club ${inView ? "animate" : ""}`}
+              >
+              We are the Official Carleton Music Club
+            </h1>
+            <p
+              ref={headingRef}
+              className={`fostering-a-community ${inView ? "animate" : ""}`}
+              >
+              Fostering a community of both beginner and experienced musicians
+            </p>
+          </div>
+
+          <div className="footer">
+            <p className="footer-text">
+              © 2025 Carleton Music Club. All rights reserved.
+            </p>
+          </div>
+      </div>
       </div>
     </>
   );

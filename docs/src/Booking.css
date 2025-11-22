@@ -1,20 +1,5 @@
 
 
-.app-container {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch; /* or remove this line */
-  justify-content: flex-start;
-}
-
-
-/* 📱 Responsive stack on smaller screens */
-@media (max-width: 768px) {
-  
-}
-
-
-
 .gallery-page {
   color: white;
   padding: 2rem;
@@ -26,23 +11,22 @@
   text-align: center;
 }
 
-/* Your existing card look */
 .booking-form {
   max-width: 600px;
-  margin: 2rem auto; /* add some space above/below */
+  margin: 2rem auto;
   padding: 2rem;
   background-color: rgba(26, 26, 26, 0.9);
   border-radius: 12px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
-  display: grid; /* grid container */
-  gap: 1rem; /* consistent spacing between all children */
+  display: grid;
+  gap: 1rem; 
 }
 
 /* Two-column rows for related inputs */
 .booking-form .row {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* two equal columns */
-  gap: 1rem; /* space between the two inputs */
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem; 
 }
 
 /* Input/textarea base styles */
@@ -78,7 +62,7 @@
 .booking-actions {
   display: flex;
   gap: 0.75rem;
-  justify-content: flex-end; /* or center if you prefer */
+  justify-content: flex-end;
   margin-top: 0.5rem;
 }
 
