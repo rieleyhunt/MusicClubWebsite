@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Events.css";
 import { Helmet } from "react-helmet-async";
-
+import { autoShrinkText } from "./autoshrink";
 // Use relative URL if VITE_API_URL is not set (for App Runner deployment)
 const API = import.meta.env.VITE_API_URL || "";
 
@@ -36,6 +36,15 @@ const Events: React.FC = () => {
   //     .catch((err) => console.error("Error fetching concerts:", err));
   // }, []);
   // console.log(concerts.length);
+  useEffect(() => {
+    const titles = document.querySelectorAll(".event-title h1");
+    const whens = document.querySelectorAll(".event-when h2");
+    const wheres = document.querySelectorAll(".event-where h2");
+
+    titles.forEach((el) => autoShrinkText(el as HTMLElement));
+    whens.forEach((el) => autoShrinkText(el as HTMLElement));
+    wheres.forEach((el) => autoShrinkText(el as HTMLElement));
+  }, []);
 
   return (
     <>
@@ -95,9 +104,77 @@ const Events: React.FC = () => {
           <div className="events-introduction">
           </div>
           <h1 className="Events">Upcoming Events</h1>
-          <div className="concerts-grid">
+          <div className="events-grid">
+            <div className="event-card">
+              
+              <div className="event-photo">
+                <img src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Screenshot%202025-11-21%20at%208.06.59%E2%80%AFPM.png"></img>
+              </div>
+              <div className="event-title">
+                <h1>Karaoke Night</h1>
+              </div>
+              <div className="event-when">
+                <h2>Happening November 21st, 2025!</h2>
+              </div>
+              <div className="event-where">
+                <h2>Mackenzie Building ME3174</h2>
+              </div>
+            </div>
+
+            <div className="event-card">
+              
+              <div className="event-photo">
+                <img src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Screenshot%202025-11-21%20at%208.06.59%E2%80%AFPM.png"></img>
+              </div>
+              <div className="event-title">
+                <h1>Karaoke Night</h1>
+              </div>
+              <div className="event-when">
+                <h2>Happening November 21st, 2025!</h2>
+              </div>
+              <div className="event-where">
+                <h2>Mackenzie Building ME3174</h2>
+              </div>
+            </div>
+
+            <div className="event-card">
+              
+              <div className="event-photo">
+                <img src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Screenshot%202025-11-21%20at%208.06.59%E2%80%AFPM.png"></img>
+              </div>
+              <div className="event-title">
+                <h1>Karaoke Night</h1>
+              </div>
+              <div className="event-when">
+                <h2>Happening November 21st, 2025!</h2>
+              </div>
+              <div className="event-where">
+                <h2>Mackenzie Building ME3174</h2>
+              </div>
+            </div>
+
+            <div className="event-card">
+              
+              <div className="event-photo">
+                <img src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Screenshot%202025-11-21%20at%208.06.59%E2%80%AFPM.png"></img>
+              </div>
+              <div className="event-title">
+                <h1>Karaoke Night</h1>
+              </div>
+              <div className="event-when">
+                <h2>Happening November 21st, 2025!</h2>
+              </div>
+              <div className="event-where">
+                <h2>Mackenzie Building ME3174</h2>
+              </div>
+            </div>
             
           </div>
+          <div className="footer">
+            <p className="footer-text">
+              © 2025 Carleton Music Club. All rights reserved.
+            </p>
+        </div>
         </div>
       </div>
     </>

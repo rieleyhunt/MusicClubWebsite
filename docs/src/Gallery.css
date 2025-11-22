@@ -1,11 +1,6 @@
 
 
-.app-container {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch; /* or remove this line */
-  justify-content: flex-start;
-}
+
 
 
 /* 📱 Responsive stack on smaller screens */

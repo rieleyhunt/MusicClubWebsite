@@ -19,6 +19,7 @@ a {
   text-decoration: none;
 }
 
+
 /* NAV BAR GLOBAL */
 
 .button-container {
@@ -51,8 +52,6 @@ a {
   align-items: center;
   background-color: #F8EDED;
   padding: 0.5rem 2rem;
-  width: 100%;
-  position: sticky;
 }
 
 .top-bar-logo {
@@ -81,16 +80,6 @@ a {
 }
 
 /* MAIN PAGE */
-
-.app-container {
-  position: relative; /* Parent relative positioning */
-  width: 100vw; /* Full width */
-  min-height: 100vh; /* Minimum height */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center children horizontally */
-  justify-content: center; /* Center children vertically */
-}
 
 .hero {
   background-image: url("https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/185f7ffe-e42c-4537-92ca-f7562645a4a5%20-%20Edited.jpg");
@@ -258,6 +247,9 @@ a {
     padding-top: 0.5rem;
   }
 
+  .top-bar-logo {
+    gap: 5px;
+  }
   .button-container {
     justify-content: center;
     margin-top: 0.5rem;
@@ -271,7 +263,15 @@ a {
 
   .musicClubLogo {
     margin-right: 0;
+    height: 50px;
   }
+}
+
+.main-content {
+  background-color: #B43F3F;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 20px;
 }
 
 @media (max-width: 405px) {
