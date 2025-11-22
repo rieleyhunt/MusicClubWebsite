@@ -68,9 +68,7 @@ a {
   max-width: 50vw;
 }
 
-.button p {
-  /* font-size: 31r */
-}
+
 
 .button-navbar:hover {
   transform: translateY(-5px);
@@ -106,10 +104,6 @@ a {
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.button p {
-  /* font-size: 31r */
 }
 
 .button:hover {
