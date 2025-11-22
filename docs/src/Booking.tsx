@@ -27,41 +27,41 @@ const Booking: React.FC = () => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("sending");
-    try {
-      // Ensure proper URL construction - handle empty API and edge cases
-      let url;
-      if (!API || API === "") {
-        url = "/booking";
-      } else {
-        // Remove trailing slash from API if present
-        const cleanAPI = API.endsWith("/") ? API.slice(0, -1) : API;
-        url = `${cleanAPI}/booking`;
-      }
-      console.log("API value:", API);
-      console.log("Constructed booking URL:", url);
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) throw new Error("failed");
-      setStatus("sent");
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        date: "",
-        venue: "",
-        message: "",
-        hp: "",
-      });
-    } catch {
-      setStatus("error");
-    }
-  };
+  // const onSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setStatus("sending");
+  //   try {
+  //     // Ensure proper URL construction - handle empty API and edge cases
+  //     let url;
+  //     if (!API || API === "") {
+  //       url = "/booking";
+  //     } else {
+  //       // Remove trailing slash from API if present
+  //       const cleanAPI = API.endsWith("/") ? API.slice(0, -1) : API;
+  //       url = `${cleanAPI}/booking`;
+  //     }
+  //     console.log("API value:", API);
+  //     console.log("Constructed booking URL:", url);
+  //     const res = await fetch(url, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(form),
+  //     });
+  //     if (!res.ok) throw new Error("failed");
+  //     setStatus("sent");
+  //     setForm({
+  //       name: "",
+  //       email: "",
+  //       phone: "",
+  //       date: "",
+  //       venue: "",
+  //       message: "",
+  //       hp: "",
+  //     });
+  //   } catch {
+  //     setStatus("error");
+  //   }
+  // };
 
   return (
     <>

@@ -18,24 +18,24 @@ type Concert = {
 const Upcoming: React.FC = () => {
   const [concerts, setConcerts] = useState<Concert[]>([]);
 
-  useEffect(() => {
-    // Ensure proper URL construction - handle empty API and edge cases
-    let url;
-    if (!API || API === "") {
-      url = "/concerts";
-    } else {
-      // Remove trailing slash from API if present
-      const cleanAPI = API.endsWith("/") ? API.slice(0, -1) : API;
-      url = `${cleanAPI}/concerts`;
-    }
-    console.log("API value:", API);
-    console.log("Constructed URL:", url);
-    fetch(url)
-      .then((r) => r.json())
-      .then(setConcerts)
-      .catch((err) => console.error("Error fetching concerts:", err));
-  }, []);
-  console.log(concerts.length);
+  // useEffect(() => {
+  //   // Ensure proper URL construction - handle empty API and edge cases
+  //   let url;
+  //   if (!API || API === "") {
+  //     url = "/concerts";
+  //   } else {
+  //     // Remove trailing slash from API if present
+  //     const cleanAPI = API.endsWith("/") ? API.slice(0, -1) : API;
+  //     url = `${cleanAPI}/concerts`;
+  //   }
+  //   console.log("API value:", API);
+  //   console.log("Constructed URL:", url);
+  //   fetch(url)
+  //     .then((r) => r.json())
+  //     .then(setConcerts)
+  //     .catch((err) => console.error("Error fetching concerts:", err));
+  // }, []);
+  // console.log(concerts.length);
 
   return (
     <>
