@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Upcoming.css";
 import { Helmet } from "react-helmet-async";
 
 // Use relative URL if VITE_API_URL is not set (for App Runner deployment)
-const API = "";
+// const API = "";
 
-type Concert = {
-  _id?: string;
-  title: string;
-  date: string;
-  location: string;
-  photo: string;
-  url?: string;
-};
+// type Concert = {
+//   _id?: string;
+//   title: string;
+//   date: string;
+//   location: string;
+//   photo: string;
+//   url?: string;
+// };
 
 const Upcoming: React.FC = () => {
-  const [concerts, setConcerts] = useState<Concert[]>([]);
+  // const [concerts, setConcerts] = useState<Concert[]>([]);
 
   // useEffect(() => {
   //   // Ensure proper URL construction - handle empty API and edge cases
@@ -91,35 +90,6 @@ const Upcoming: React.FC = () => {
           </div>
         </div>
         <div className="upcoming-page">
-          <h1 className="upcoming-shows">Upcoming Shows</h1>
-          <div className="concerts-grid">
-            {concerts.map((concert) => {
-              const href = concert.url || "#";
-              const external = /^https?:\/\//i.test(href);
-
-              return (
-                <a
-                  key={concert._id}
-                  href={href}
-                  target={external ? "_blank" : undefined}
-                  rel={external ? "noopener noreferrer" : undefined}
-                  className="concert-card-link"
-                  aria-label={`View details for ${concert.title}`}
-                >
-                  <div className="concert-card">
-                    <img
-                      src={concert.photo}
-                      alt={concert.title}
-                      className="concert-img"
-                    />
-                    <h2>{concert.title}</h2>
-                    <p>{concert.date}</p>
-                    <p>{concert.location}</p>
-                  </div>
-                </a>
-              );
-            })}
-          </div>
         </div>
       </div>
     </>
