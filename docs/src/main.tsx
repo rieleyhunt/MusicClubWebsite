@@ -5,7 +5,7 @@ import "./Events.css";
 import App from "./App.tsx";
 import Events from "./Events.tsx";
 import Gallery from "./Gallery.tsx";
-import Booking from "./Booking.tsx";
+import Join from "./Join.tsx";
 import { HelmetProvider } from "react-helmet-async";
 
 createRoot(document.getElementById("root")!).render(
@@ -16,7 +16,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<App />} />
           <Route path="/Events" element={<Events />} />
           <Route path="/gallery" element={<Gallery />} />
-          <Route path="/booking" element={<Booking />} />
+          <Route path="/Join" element={<Join />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>

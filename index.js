@@ -14,10 +14,7 @@ const app = express();
 // ----- CORS (one time) -----
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://sidysm7pb7.us-east-1.awsapprunner.com',
   'https://musicclubwebsite.onrender.com',
-  process.env.FRONTEND_URL,     // e.g. https://<amplify>.amplifyapp.com
-  process.env.FRONTEND_URL_ALT, // e.g. https://your-frontend-domain.com
 ].filter(Boolean);
 
 app.use(cors({
@@ -47,96 +44,20 @@ app.use(express.json());
 // ----- R2 uploader routes -----
 app.use('/r2', r2Uploader);
 
-// ----- Email routes -----
-const rateLimit = require('express-rate-limit');
-const nodemailer = require('nodemailer');
+// ----- Mongo connection (one time) -----
+mongoose.connect(process.env.MONGO_URI);
+mongoose.connection.on('connected', () => console.log('Mongo connected'));
+mongoose.connection.on('error', err => console.error('Mongo error:', err));
 
-const bookingLimiter = rateLimit({
-  windowMs: 60 * 1000,   // 1 minute
-  max: 5,                // max 5 requests/min
-});
+// ----- Mongoose schema/model -----
+const eventSchema = new mongoose.Schema({
+  img: String,
+  title: String,
+  date: String,
+  location: String,
+}, { timestamps: true });
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,        // smtp.gmail.com
-  port: Number(process.env.SMTP_PORT),// 587
-  secure: false,                      // false for 587 (STARTTLS)
-  auth: {
-    user: process.env.SMTP_USER,      // your Gmail address
-    pass: process.env.SMTP_PASS,      // the 16-char app password
-  },
-});
-
-// quick fields validator
-function isEmail(v = "") {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-}
-
-app.post('/booking', bookingLimiter, async (req, res) => {
-  console.log('POST /booking called');
-  console.log('Request body:', req.body);
-  try {
-    const { name, email, message, date, venue, phone, hp } = req.body;
-
-    // honeypot (spam bots fill hidden fields)
-    if (hp) {
-      console.log('Honeypot triggered');
-      return res.status(200).json({ ok: true });
-    }
-
-    // basic validation
-    if (!name || !email || !message) {
-      console.log('Validation failed - missing required fields');
-      return res.status(400).json({ error: 'name, email and message are required' });
-    }
-    if (!isEmail(email)) {
-      console.log('Validation failed - invalid email');
-      return res.status(400).json({ error: 'invalid email' });
-    }
-
-    console.log('Sending email for booking inquiry from:', name);
-    const subject = `New Booking Inquiry from ${name}`;
-    const html = `
-      <h2>New Booking Inquiry</h2>
-      <p><b>Name:</b> ${name}</p>
-      <p><b>Email:</b> ${email}</p>
-      ${phone ? `<p><b>Phone:</b> ${phone}</p>` : ''}
-      ${date ? `<p><b>Event Date:</b> ${date}</p>` : ''}
-      ${venue ? `<p><b>Venue:</b> ${venue}</p>` : ''}
-      <p><b>Message:</b></p>
-      <pre style="white-space:pre-wrap;font-family:inherit">${message}</pre>
-    `;
-
-    await transporter.sendMail({
-      from: process.env.MAIL_FROM,
-      to: process.env.MAIL_TO,
-      replyTo: email,     // so you can reply directly
-      subject,
-      html,
-    });
-
-    console.log('Email sent successfully');
-    res.json({ ok: true });
-  } catch (err) {
-    console.error('Booking mail error:', err);
-    res.status(500).json({ error: 'Failed to send message' });
-  }
-});
-
-// // ----- Mongo connection (one time) -----
-// mongoose.connect(process.env.MONGO_URI); // v7+: no options object needed
-// mongoose.connection.on('connected', () => console.log('Mongo connected'));
-// mongoose.connection.on('error', err => console.error('Mongo error:', err));
-
-// // ----- Mongoose schema/model -----
-// const ConcertSchema = new mongoose.Schema({
-//   title: String,
-//   date: String,     // consider Date if you want real date sorting
-//   location: String,
-//   photo: String,
-//   url: String
-// }, { timestamps: true });
-
-// const Concert = mongoose.model('Concert', ConcertSchema);
+const Event = mongoose.model('Event', eventSchema);
 
 // ----- Health check -----
 app.get('/health', (_, res) => res.send('ok'));
@@ -148,6 +69,29 @@ app.get('/api-test', (_, res) => {
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development'
   });
+});
+
+// Get all events
+app.get('/events', async (req, res) => {
+  try {
+    const events = await Event.find().sort({ date: 1 });
+    res.json(events);
+  } catch (err) {
+    console.error('Error fetching events:', err);
+    res.status(500).json({ error: 'Failed to fetch events' });
+  }
+});
+
+// Create an event
+app.post('/events', async (req, res) => {
+  try {
+    const event = new Event(req.body);
+    await event.save();
+    res.status(201).json(event);
+  } catch (err) {
+    console.error('Error creating event:', err);
+    res.status(400).json({ error: 'Failed to create event' });
+  }
 });
 
 // Debug route to check file system (must be before static files)
@@ -182,42 +126,6 @@ app.get('/test-css', (_, res) => {
   } else {
     res.status(404).json({ error: 'CSS file not found' });
   }
-});
-
-// ----- Routes -----
-app.get('/concerts', async (req, res) => {
-  console.log('GET /concerts called');
-  try {
-    const concerts = await Concert.find().sort({ date: 1 });
-    console.log(`Found ${concerts.length} concerts`);
-    res.json(concerts);
-  } catch (e) {
-    console.error('Error in /concerts route:', e);
-    res.status(500).json({ error: 'Failed to fetch concerts' });
-  }
-});
-
-app.post('/concerts', async (req, res) => {
-  try {
-    const concert = new Concert(req.body);
-    await concert.save();
-    res.json(concert);
-  } catch (e) {
-    console.error(e);
-    res.status(400).json({ error: 'Failed to save concert' });
-  }
-});
-
-// Handle GET requests to /booking (should be POST only)
-app.get('/booking', (req, res) => {
-  console.log('GET /booking called - should be POST');
-  res.status(405).json({ error: 'Method not allowed. Use POST for booking inquiries.' });
-});
-
-// ----- Request logging (placed before API routes) -----
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next();
 });
 
 // ----- Static files and catch-all route (placed at the end) -----

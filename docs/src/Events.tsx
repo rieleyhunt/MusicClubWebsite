@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Events.css";
 import { Helmet } from "react-helmet-async";
@@ -6,36 +6,37 @@ import { autoShrinkText } from "./autoshrink";
 // Use relative URL if VITE_API_URL is not set (for App Runner deployment)
 // const API = import.meta.env.VITE_API_URL || "";
 
-// type Concert = {
-//   _id?: string;
-//   title: string;
-//   date: string;
-//   location: string;
-//   photo: string;
-//   url?: string;
-// };
+type Event = {
+  _id?: string;
+  img: string;
+  title: string;
+  date: string;
+  location: string;
+};
 
 const Events: React.FC = () => {
-  // const [concerts, setConcerts] = useState<Concert[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
+  const VITE_API_URL="localhost:3001"; //Local testing
+  const API = VITE_API_URL || "";
 
-  // useEffect(() => {
-  //   // Ensure proper URL construction - handle empty API and edge cases
-  //   let url;
-  //   if (!API || API === "") {
-  //     url = "/concerts";
-  //   } else {
-  //     // Remove trailing slash from API if present
-  //     const cleanAPI = API.endsWith("/") ? API.slice(0, -1) : API;
-  //     url = `${cleanAPI}/concerts`;
-  //   }
-  //   console.log("API value:", API);
-  //   console.log("Constructed URL:", url);
-  //   fetch(url)
-  //     .then((r) => r.json())
-  //     .then(setConcerts)
-  //     .catch((err) => console.error("Error fetching concerts:", err));
-  // }, []);
-  // console.log(concerts.length);
+  useEffect(() => {
+    // Ensure proper URL construction - handle empty API and edge cases
+    let url;
+    if (!API) {
+      url = "/events";
+    } else {
+      // Remove trailing slash from API if present
+      const cleanAPI = API.endsWith("/") ? API.slice(0, -1) : API;
+      url = `${cleanAPI}/events`;
+    }
+    console.log("API value:", API);
+    console.log("Constructed URL:", url);
+    fetch(url)
+      .then((r) => r.json())
+      .then(setEvents)
+      .catch((err) => console.error("Error fetching events:", err));
+  }, []);
+  console.log(events.length);
   useEffect(() => {
     const titles = document.querySelectorAll(".event-title h1");
     const whens = document.querySelectorAll(".event-when h2");
@@ -95,8 +96,8 @@ const Events: React.FC = () => {
             <Link to="/gallery">
               <button className="button-navbar"><p>Gallery</p></button>
             </Link>
-            <Link to="/booking">
-              <button className="button-navbar"><p>Booking</p></button>
+            <Link to="/Join">
+              <button className="button-navbar"><p>Join</p></button>
             </Link>
           </div>
         </div>
@@ -105,70 +106,22 @@ const Events: React.FC = () => {
           </div>
           <h1 className="Events">Upcoming Events</h1>
           <div className="events-grid">
-            <div className="event-card">
-              
-              <div className="event-photo">
-                <img src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Screenshot%202025-11-21%20at%208.06.59%E2%80%AFPM.png"></img>
+            {events.map((event) => (
+              <div className="event-card" key={event._id || event.title}>
+                <div className="event-photo">
+                  <img src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Screenshot%202025-11-21%20at%208.06.59%E2%80%AFPM.png"></img>
+                </div>
+                <div className="event-title">
+                  <h1>Karaoke Night</h1>
+                </div>
+                <div className="event-when">
+                  <h2>Happening November 21st, 2025!</h2>
+                </div>
+                <div className="event-where">
+                  <h2>Mackenzie Building ME3174</h2>
+                </div>
               </div>
-              <div className="event-title">
-                <h1>Karaoke Night</h1>
-              </div>
-              <div className="event-when">
-                <h2>Happening November 21st, 2025!</h2>
-              </div>
-              <div className="event-where">
-                <h2>Mackenzie Building ME3174</h2>
-              </div>
-            </div>
-
-            <div className="event-card">
-              
-              <div className="event-photo">
-                <img src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Screenshot%202025-11-21%20at%208.06.59%E2%80%AFPM.png"></img>
-              </div>
-              <div className="event-title">
-                <h1>Karaoke Night</h1>
-              </div>
-              <div className="event-when">
-                <h2>Happening November 21st, 2025!</h2>
-              </div>
-              <div className="event-where">
-                <h2>Mackenzie Building ME3174</h2>
-              </div>
-            </div>
-
-            <div className="event-card">
-              
-              <div className="event-photo">
-                <img src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Screenshot%202025-11-21%20at%208.06.59%E2%80%AFPM.png"></img>
-              </div>
-              <div className="event-title">
-                <h1>Karaoke Night</h1>
-              </div>
-              <div className="event-when">
-                <h2>Happening November 21st, 2025!</h2>
-              </div>
-              <div className="event-where">
-                <h2>Mackenzie Building ME3174</h2>
-              </div>
-            </div>
-
-            <div className="event-card">
-              
-              <div className="event-photo">
-                <img src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Screenshot%202025-11-21%20at%208.06.59%E2%80%AFPM.png"></img>
-              </div>
-              <div className="event-title">
-                <h1>Karaoke Night</h1>
-              </div>
-              <div className="event-when">
-                <h2>Happening November 21st, 2025!</h2>
-              </div>
-              <div className="event-where">
-                <h2>Mackenzie Building ME3174</h2>
-              </div>
-            </div>
-            
+            ))}
           </div>
           <div className="footer">
             <p className="footer-text">

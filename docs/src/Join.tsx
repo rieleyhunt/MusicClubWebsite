@@ -1,10 +1,9 @@
-// Gallery.tsx
-import React from "react";
 import { Link } from "react-router-dom";
-import "./Gallery.css";
 import { Helmet } from "react-helmet-async";
+import "./Join.css";
 
-const Gallery: React.FC = () => {
+const Join: React.FC = () => {
+
   return (
     <>
       <Helmet>
@@ -20,21 +19,23 @@ const Gallery: React.FC = () => {
         />
       </Helmet>
       <div className="app-container">
-        {/* Background Image */}
+        {/* Background */}
         <div
           aria-hidden
           style={{
-            position: "fixed", // stays in place on scroll
+            position: "fixed",
             inset: 0,
-            backgroundImage: `url(https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/Broken.png)`,
+            backgroundImage:
+              "url(https://pub-9539b9de20804c718eb32ea5e85bc69a.r2.dev/assets/DSC00012.JPG)",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundColor: "black",
-            filter: "brightness(0.6)", // optional darken
+            filter: "brightness(0.6)",
             zIndex: -1,
           }}
         />
+
         {/*TOP BAR*/}
         <div className="top-bar">
           <div className="top-bar-logo">
@@ -61,9 +62,13 @@ const Gallery: React.FC = () => {
             </Link>
           </div>
         </div>
+
+        <div className="join-page">
+          <h1 className="join-title">Join the Music Club</h1>
+        </div>
       </div>
     </>
   );
 };
 
-export default Gallery;
+export default Join;

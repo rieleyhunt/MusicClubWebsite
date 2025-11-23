@@ -84,8 +84,8 @@ const Upcoming: React.FC = () => {
             <Link to="/gallery">
               <button className="button">Gallery</button>
             </Link>
-            <Link to="/booking">
-              <button className="button">Booking</button>
+            <Link to="/Join">
+              <button className="button">Join</button>
             </Link>
           </div>
         </div>

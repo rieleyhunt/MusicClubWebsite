@@ -63,8 +63,8 @@ const App: React.FC = () => {
             <Link to="/gallery">
               <button className="button-navbar"><p>Gallery</p></button>
             </Link>
-            <Link to="/booking">
-              <button className="button-navbar"><p>Booking</p></button>
+            <Link to="/Join">
+              <button className="button-navbar"><p>Join</p></button>
             </Link>
           </div>
         </div>
