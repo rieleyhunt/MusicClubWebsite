@@ -16,7 +16,7 @@ type Event = {
 
 const Events: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
-  const VITE_API_URL="localhost:3001"; //Local testing
+  const VITE_API_URL="http://localhost:3001"; //Local testing
   const API = VITE_API_URL || "";
 
   useEffect(() => {
@@ -109,16 +109,16 @@ const Events: React.FC = () => {
             {events.map((event) => (
               <div className="event-card" key={event._id || event.title}>
                 <div className="event-photo">
-                  <img src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Screenshot%202025-11-21%20at%208.06.59%E2%80%AFPM.png"></img>
+                  <img src={event.img}></img>
                 </div>
                 <div className="event-title">
-                  <h1>Karaoke Night</h1>
+                  <h1>{event.title}</h1>
                 </div>
                 <div className="event-when">
-                  <h2>Happening November 21st, 2025!</h2>
+                  <h2>{event.date}</h2>
                 </div>
                 <div className="event-where">
-                  <h2>Mackenzie Building ME3174</h2>
+                  <h2>{event.location}</h2>
                 </div>
               </div>
             ))}
