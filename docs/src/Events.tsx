@@ -21,7 +21,6 @@ interface EventsProps {
 const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
   const [events, setEvents] = useState<Event[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const VITE_API_URL="http://localhost:3001"; //Local testing
   const API = VITE_API_URL || "";
   const [eventImageUrl, setEventImageUrl] = useState("");
   const [newTitle, setNewTitle] = useState("");
@@ -69,9 +68,12 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
     setEventImageUrl("");
   }
 
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+ const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const file = files[0];
 
     const formData = new FormData();
     formData.append("file", file);
