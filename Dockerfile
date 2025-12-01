@@ -13,9 +13,6 @@ RUN npm ci
 # Copy the source code
 COPY . .
 
-# Build the frontend
-RUN npm run build
-
 # Remove dev dependencies to reduce image size
 RUN npm prune --production
 

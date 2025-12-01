@@ -21,7 +21,7 @@ interface EventsProps {
 const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
   const [events, setEvents] = useState<Event[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const API = VITE_API_URL || "";
+  const API = import.meta.env.VITE_API_URL || "";
   const [eventImageUrl, setEventImageUrl] = useState("");
   const [newTitle, setNewTitle] = useState("");
   const [newDate, setNewDate] = useState("");

@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 
-console.log('R2 Key loaded?', !!process.env.R2_ACCESS_KEY_ID);
+console.log('R2 Key loaded?', !!process.env.CF_ACCESS_KEY_ID);
 
 const app = express();
 
