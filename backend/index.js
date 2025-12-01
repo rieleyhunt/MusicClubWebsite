@@ -18,7 +18,7 @@ const app = express();
 // ----- CORS (one time) -----
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://musicclubwebsite.onrender.com',
+  'https://musicclubwebsite-frontend.onrender.com',
 ].filter(Boolean);
 
 app.use(cors({
