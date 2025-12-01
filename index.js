@@ -1,9 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage() });
 const r2Uploader = require('./r2Uploader');
 const fs = require('fs');
 const path = require('path');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 
@@ -44,6 +48,16 @@ app.use(express.json());
 // ----- R2 uploader routes -----
 app.use('/r2', r2Uploader);
 
+app.post("/upload", upload.single("file"), async (req, res) => {
+  try {
+    const url = await r2Uploader(req.file);
+    res.json({ url });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Upload failed" });
+  }
+});
+
 // ----- Mongo connection (one time) -----
 mongoose.connect(process.env.MONGO_URI);
 mongoose.connection.on('connected', () => console.log('Mongo connected'));
@@ -58,18 +72,6 @@ const eventSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 const Event = mongoose.model('Event', eventSchema);
-
-// ----- Health check -----
-app.get('/health', (_, res) => res.send('ok'));
-
-// Test API endpoint
-app.get('/api-test', (_, res) => {
-  res.json({ 
-    message: 'API is working',
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
-  });
-});
 
 // Get all events
 app.get('/events', async (req, res) => {
@@ -92,6 +94,18 @@ app.post('/events', async (req, res) => {
     console.error('Error creating event:', err);
     res.status(400).json({ error: 'Failed to create event' });
   }
+});
+
+// ----- Health check -----
+app.get('/health', (_, res) => res.send('ok'));
+
+// Test API endpoint
+app.get('/api-test', (_, res) => {
+  res.json({ 
+    message: 'API is working',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
 });
 
 // Debug route to check file system (must be before static files)
@@ -208,8 +222,43 @@ app.get('/*', (req, res) => {
   res.sendFile(indexPath);
 });
 
+// ----- Authentication -----
+const adminUsername = process.env.ADMIN_USERNAME;
+const adminPasswordHash = process.env.ADMIN_PASSWORD;
+
+// LOGIN ENDPOINT
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  if (username !== adminUsername)
+    return res.status(401).json({ error: "Invalid Credentials" })
+
+  const valid = await bcrypt.compare(password, adminPasswordHash);
+  if (!valid)
+    return res.status(401).json({ error: "Invalid Credentials" });
+
+  const token = jwt.sign({ username }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+
+  res.json({ token });
+});
+
+app.get("/admin", (req, res) => {
+  const auth = req.headers.authorization;
+  if (!auth) return res.status(401).send("Unauthorized");
+
+  const token = auth.split(" ")[1];
+  try {
+    jwt.verify(token, process.env.JWT_SECRET);
+    res.json({ message: "Welcome to the admin dashboard!!!" }); 
+  } catch {
+    res.status(401).send("Invalid token");
+  }
+});
+
 // ----- Start server -----
-const PORT = process.env.PORT || 3001; // Match AWS App Runner configuration
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`API on :${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);

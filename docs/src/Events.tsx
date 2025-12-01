@@ -14,10 +14,80 @@ type Event = {
   location: string;
 };
 
-const Events: React.FC = () => {
+interface EventsProps {
+  isLoggedIn: boolean;
+}
+
+const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
   const [events, setEvents] = useState<Event[]>([]);
+  const [showModal, setShowModal] = useState(false);
   const VITE_API_URL="http://localhost:3001"; //Local testing
   const API = VITE_API_URL || "";
+  const [eventImageUrl, setEventImageUrl] = useState("");
+  const [newTitle, setNewTitle] = useState("");
+  const [newDate, setNewDate] = useState("");
+  const [newLocation, setNewLocation] = useState("");
+
+  async function saveEvent() {
+    console.log(newTitle, newDate, newLocation, eventImageUrl);
+    if (!newTitle || !newDate || !newLocation || !eventImageUrl) {
+      alert("Fill all fields and upload an image first!");
+      return;
+    }
+
+    const body = {
+      title: newTitle,
+      date: newDate,
+      location: newLocation,
+      img: eventImageUrl
+    };
+
+    const res = await fetch("http://localhost:3001/events", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (!res.ok) {
+      alert("Error saving event");
+      return;
+    }
+
+    const savedEvent = await res.json();
+
+    // Add to UI
+    setEvents((prev) => [...prev, savedEvent]);
+
+    // Close modal & clear form
+    setShowModal(false);
+    setNewTitle("");
+    setNewDate("");
+    setNewLocation("");
+    setEventImageUrl("");
+  }
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("http://localhost:3001/upload", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+
+    if (data.url) {
+      setEventImageUrl(data.url);
+      console.log("Uploaded image URL:", data.url);
+    }
+  };
 
   useEffect(() => {
     // Ensure proper URL construction - handle empty API and edge cases
@@ -36,7 +106,7 @@ const Events: React.FC = () => {
       .then(setEvents)
       .catch((err) => console.error("Error fetching events:", err));
   }, []);
-  console.log(events.length);
+
   useEffect(() => {
     const titles = document.querySelectorAll(".event-title h1");
     const whens = document.querySelectorAll(".event-when h2");
@@ -105,6 +175,14 @@ const Events: React.FC = () => {
           <div className="events-introduction">
           </div>
           <h1 className="Events">Upcoming Events</h1>
+          {isLoggedIn && (
+            <button
+              className="add-event-button"
+              onClick={() => setShowModal(true)}
+            >
+              +
+            </button>
+          )}
           <div className="events-grid">
             {events.map((event) => (
               <div className="event-card" key={event._id || event.title}>
@@ -129,6 +207,37 @@ const Events: React.FC = () => {
             </p>
         </div>
         </div>
+      {showModal && (
+        <div className="modal-backdrop">
+          <div className="modal">
+            <h2>Add Event</h2>
+
+            <input
+              placeholder="Title"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+            />
+
+            <input
+              placeholder="Date"
+              value={newDate}
+              onChange={(e) => setNewDate(e.target.value)}
+            />
+
+            <input
+              placeholder="Location"
+              value={newLocation}
+              onChange={(e) => setNewLocation(e.target.value)}
+            />
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+
+            <div className="modal-buttons">
+              <button onClick={() => setShowModal(false)}>Cancel</button>
+              <button onClick={saveEvent}>Save</button>
+            </div>
+          </div>
+      </div>
+      )}
       </div>
     </>
   );
