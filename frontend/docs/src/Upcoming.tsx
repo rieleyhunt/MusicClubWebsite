@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "./Upcoming.css";
-import { Helmet } from "react-helmet-async";
 
 // Use relative URL if VITE_API_URL is not set (for App Runner deployment)
 // const API = "";
@@ -38,11 +37,6 @@ const Upcoming: React.FC = () => {
 
   return (
     <>
-      <Helmet>
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin=""/>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
-      </Helmet>
       <div className="app-container">
         <div
           aria-hidden
