@@ -101,7 +101,7 @@ const App: React.FC = () => {
                 <a href="http://instagram.com/musicclubcu" target="_blank" rel="noopener noreferrer">
                   <img src="/instagram.png" alt="Instagram"></img>
                 </a>
-                <a href="https://discord.gg/rCm28JwxVb" target="_blank">
+                <a href="https://discord.gg/rCm28JwxVb" target="_blank" rel="noopener noreferrer">
                   <img src="/discord.png" alt="Discord"></img>
                 </a>
               </div>
