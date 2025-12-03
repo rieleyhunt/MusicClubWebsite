@@ -41,7 +41,7 @@ const App: React.FC = () => {
             <Link to="/">
               <img
                 src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Carleton_Music_Club_Ravens_Only_Logo_1.svg"
-                alt="Carleon Music Club Logo"
+                alt="Carleton Music Club Logo"
                 className="musicClubLogo"
               />
             </Link>
