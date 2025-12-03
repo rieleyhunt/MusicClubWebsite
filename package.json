@@ -1,0 +1,18 @@
+{
+  "name": "music-club-website",
+  "version": "1.0.0",
+  "description": "Carleton Music Club Website",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run open:browser\"",
+    "dev:backend": "cd backend && npm install && npm run dev:backend",
+    "dev:frontend": "cd frontend/docs && npm install --legacy-peer-deps && npm run dev",
+    "open:browser": "sleep 5 && (google-chrome http://localhost:5173 2>/dev/null || chromium-browser http://localhost:5173 2>/dev/null || xdg-open http://localhost:5173)",
+    "build": "cd frontend/docs && npm run build",
+    "build:backend": "cd backend && npm install",
+    "build:frontend": "cd frontend/docs && npm install && npm run build",
+    "start": "npm run build && cd backend && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
