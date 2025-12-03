@@ -2,16 +2,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Gallery.css";
-import { Helmet } from "react-helmet-async";
 
 const Gallery: React.FC = () => {
   return (
     <>
-      <Helmet>
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin=""/>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
-      </Helmet>
       <div className="app-container">
         {/*Add the nav bar*/}
         <div className="top-bar">

@@ -7,7 +7,6 @@ import Events from "./Events.tsx";
 import Gallery from "./Gallery.tsx";
 import Join from "./Join.tsx";
 import Login from "./Login.tsx";
-import { HelmetProvider } from "react-helmet-async";
 
 function Root() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -16,20 +15,18 @@ function Root() {
 
   return (
     <StrictMode>
-      <HelmetProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="/Events" element={<Events {...({ isLoggedIn } as any)} />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/Join" element={<Join />} />
-            <Route
-              path="/Login"
-              element={<Login onLogin={() => setIsLoggedIn(true)} />}
-            />
-          </Routes>
-        </BrowserRouter>
-      </HelmetProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/Events" element={<Events {...({ isLoggedIn } as any)} />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/Join" element={<Join />} />
+          <Route
+            path="/Login"
+            element={<Login onLogin={() => setIsLoggedIn(true)} />}
+          />
+        </Routes>
+      </BrowserRouter>
     </StrictMode>
   );
 }
