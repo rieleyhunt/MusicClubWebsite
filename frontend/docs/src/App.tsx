@@ -99,10 +99,10 @@ const App: React.FC = () => {
               <p>email: <a href="mailto:musicclubcu@gmail.com">musicclubcu@gmail.com</a></p>
               <div className="footer-socials">
                 <a href="http://instagram.com/musicclubcu" target="_blank" rel="noopener noreferrer">
-                  <img src="/instagram.png"></img>
+                  <img src="/instagram.png" alt="Instagram"></img>
                 </a>
-                <a href="https://discord.gg/rCm28JwxVb" target="_blank" rel="noopener noreferrer">
-                  <img src="/discord.png"></img>
+                <a href="https://discord.gg/rCm28JwxVb" target="_blank">
+                  <img src="/discord.png" alt="Discord"></img>
                 </a>
               </div>
               <p className="copyright">© 2025 Carleton Music Club. All rights reserved.</p>
