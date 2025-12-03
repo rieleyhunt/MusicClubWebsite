@@ -9,8 +9,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: "Rubik", sans-serif;
-  color: #173B45;
+  font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -35,8 +34,8 @@ a {
 .button-navbar {
   display: flex;
   background-color: transparent;
-  color: #173B45;
-  border: solid 2px #173B45;
+  color: #000000;
+  border: solid 2px #000000;
   font-weight: bold;
   box-shadow: 1.5px 1.5px #B43F3F;
   padding: 1rem 1rem;
@@ -51,7 +50,7 @@ a {
   justify-content: space-between; /* logo left, buttons right */
   align-items: center;
   background-color: #F8EDED;
-  padding: 0.5rem 2rem;
+  padding: 0.4rem 2rem;
 }
 
 .top-bar-logo {
@@ -65,16 +64,36 @@ a {
 .top-bar-logo h1 {
   font-size: clamp(1rem, 4vw, 2rem);
   font-weight: 1000;
+  text-transform: uppercase;
   max-width: 50vw;
 }
 
+.top-bar-logo h2 {
+  font-size: clamp(0.6rem, 2vw, 1rem);
+}
 
+.music-club-text {
+  display: flex;
+  flex-direction: column;
+}
 
 .button-navbar:hover {
   transform: translateY(-5px);
   background-color: #F8EDED;
   box-shadow: 3px 3px #B43F3F;
   transition: all 0.2s ease, transform 0.2s ease;
+}
+
+.musicClubLogo {
+  height: auto;
+  width: 50px;
+  margin-right: auto;
+  transition: all 0.2s
+}
+
+.musicClubLogo:hover {
+  transform: scale(1.05);
+  transition: all 0.2s
 }
 
 /* MAIN PAGE */
@@ -84,16 +103,64 @@ a {
   background-position: 20% center;
   background-size: cover;
   display: flex;
-  padding: 0;
-  margin: 0;
+  align-items: end;
+  padding: 10px 10px 10px 10px;
   width: 100%;
   height: 80vh;
+  box-sizing: border-box;
 }
 
-.musicClubLogo {
-  height: auto;
-  width: 50px; /* or use max-width: 40vw if you want it responsive */
-  margin-right: auto;
+.transparent-box {
+  background-color: rgb(0,0,0,0.6);
+  display: flex;
+  height: 30%;
+  align-items: center;
+  justify-items: center;
+  max-width: 90%;
+  border-radius: 12px;
+}
+
+.main-content {
+  width: 100%;
+  max-width: 90%;
+  padding: 0;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.we-are-carleton-music-club {
+  color: #ffffff;
+  font-size: clamp(20px, 6vw, 50px);
+  font-size: clamp(20px, 3vh, 50px);
+  font-weight: 600;
+  word-wrap: break-word;
+  margin-left: 5%;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 1s ease-out;
+}
+
+.we-are-carleton-music-club.animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fostering-a-community {
+  color: #ffffff;
+  font-size: clamp(10px, 6vw, 25px);
+  font-size: clamp(10px, 2vh, 25px);
+  font-weight: 500;
+  word-wrap: break-word;
+  margin-top: 10px;
+  margin-left: 5%;
+  opacity: 1;
+  transform: translateX(-20px);
+  transition: all 1s ease-out;
+}
+
+.fostering-a-community.animate {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .button {
@@ -121,33 +188,6 @@ a {
   text-align: left;
 }
 
-.concert1 {
-  position: fixed; /* or position: absolute; based on your specific needs */
-  top: 0;
-  left: 0;
-  width: 100vw; /* 100% of the viewport width */
-  height: 100vh; /* 100% of the viewport height */
-  object-fit: cover; /* Covers the entire area of the element, may cut off parts of the image */
-  z-index: -1; /* Keeps the image behind other content; remove or adjust based on context */
-}
-
-/* The official logo image! */
-.logo {
-  width: 70vw; /* Adjust size more responsively */
-  height: auto; /* Maintain aspect ratio */
-  position: relative; /* Make it relative to flex item adjustments */
-  margin-top: 0px; /* Space from top */
-  padding-bottom: -100px;
-  z-index: 2;
-  /* animation */
-  opacity: 0;
-  margin: 0 auto;
-  display: block;
-  transform: translateY(20px);
-  animation: fadeSlideIn 1s ease-out forwards;
-  animation-delay: 0.3s;
-}
-
 @keyframes fadeSlideIn {
   to {
     opacity: 1;
@@ -155,84 +195,51 @@ a {
   }
 }
 
-.we-are-carleton-music-club {
-  color: #173B45;
-  font-size: 50px;
-  font-weight: 600;
-  line-height: 44px;
-  word-wrap: break-word;
-  margin-left: 5%;
-  padding: 2rem;
-  opacity: 0;
-  transform: translateX(-20px);
-  transition: all 1s ease-out;
-}
-
-.we-are-carleton-music-club.animate {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Ottawa’s up and coming pop punk sensation */
-.fostering-a-community {
-  color: #173B45;
-  font-size: 30px;
-  font-weight: 500;
-  line-height: 30px;
-  word-wrap: break-word;
-  margin-top: 0px;
-  margin-left: 5%;
-  padding: 0rem 1rem 1rem 2rem;
-  opacity: 1;
-  transform: translateX(-20px);
-  transition: all 1s ease-out;
-}
-
-.fostering-a-community.animate {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.display-photos {
-  position: relative;
-  width: 80vw;
-  height: auto; /* Adjusted to auto to fit content */
-  min-height: 10vh; /* Ensures minimum height */
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around; /* Adjusts spacing between images */
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: transparent;
-  padding: 20px; /* Optional: Adds padding around the container */
-  overflow: hidden; /* Ensures no content spills outside */
-}
-
-.concert2,
-.concert4 {
-  padding: 10px; /* Reduced padding to ensure fit within the container */
-  position: relative;
-  width: calc(32% - 10px); /* Subtracts padding to ensure even distribution */
-  height: auto; /* Maintains aspect ratio */
-  max-height: 80%; /* Restricts height but maintains aspect ratio */
-}
-
-.concert3 {
-  padding: 10px; /* Reduced padding to ensure fit within the container */
-  position: relative;
-  width: calc(33% + 10px); /* Subtracts padding to ensure even distribution */
-  height: auto; /* Maintains aspect ratio */
-  max-height: 80%; /* Restricts height but maintains aspect ratio */
-}
-
 .footer {
-  background-color: #F8EDED;
-  color: #173B45;
+  background-color: #000000;
+  color: #ffffff !important;
   text-align: center;
+  line-height: normal;
+  padding: 20px;
+  border-top: 3px solid #B43F3F;
 }
 
-/* Responsive stack on smaller screens */
+.footer strong {
+  font-size: 1.5rem;
+}
+
+.footer a,
+.footer a:link,
+.footer a:hover,
+.footer a:visited,
+.footer a:active {
+  text-decoration: none;
+  color: #ffffff
+}
+
+.address {
+  line-height: normal;
+  padding: 5px 0 5px 0;
+}
+
+.copyright {
+  padding-top: 5px;
+}
+
+.footer-socials {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 10px;
+}
+
+.footer-socials img {
+  display: inline-block;
+  width: auto;
+  height: 40px;
+}
+
 @media (max-width: 768px) {
   .top-bar {
     flex-direction: column;
@@ -244,6 +251,7 @@ a {
   .top-bar-logo {
     gap: 5px;
   }
+
   .button-container {
     justify-content: center;
     margin-top: 0.5rem;
@@ -259,13 +267,14 @@ a {
     margin-right: 0;
     height: 50px;
   }
-}
+  
+  .top-bar-logo h2 {
+    font-size: clamp(0.9rem, 2vw, 1.6rem);
+  }
 
-.main-content {
-  background-color: #B43F3F;
-  padding: 20px;
-  margin: 20px;
-  border-radius: 20px;
+  .music-club-text {
+    align-items: center;
+  }
 }
 
 @media (max-width: 405px) {

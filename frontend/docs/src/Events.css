@@ -69,13 +69,6 @@
   white-space: nowrap;
 }
 
-.footer {
-  background-color: #F8EDED;
-  color: #173B45;
-  text-align: center;
-  padding: 25px 0px 25px 0px;
-}
-
 /* Responsive stack on smaller screens */
 @media (max-width: 1074px) {
   .events-grid {
