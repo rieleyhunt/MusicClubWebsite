@@ -37,7 +37,6 @@ async function uploadToR2(file) {
 
   await r2.send(new PutObjectCommand(params));
 
-  // Return public URL for your image
   return `https://${process.env.CF_BUCKET_SUBDOMAIN}/${fileName}`;
 }
 

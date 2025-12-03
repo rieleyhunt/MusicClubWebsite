@@ -9,10 +9,9 @@ import Join from "./Join.tsx";
 import Login from "./Login.tsx";
 import { HelmetProvider } from "react-helmet-async";
 
-// Wrap everything in a small Root component to provide login state
 function Root() {
   const [isLoggedIn, setIsLoggedIn] = useState(
-    !!localStorage.getItem("token") // true if token exists
+    !!localStorage.getItem("token")
   );
 
   return (
