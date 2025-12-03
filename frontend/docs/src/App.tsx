@@ -98,10 +98,10 @@ const App: React.FC = () => {
               </div>
               <p>email: <a href="mailto:musicclubcu@gmail.com">musicclubcu@gmail.com</a></p>
               <div className="footer-socials">
-                <a href="http://instagram.com/musicclubcu" target="_blank">
+                <a href="http://instagram.com/musicclubcu" target="_blank" rel="noopener noreferrer">
                   <img src="/instagram.png"></img>
                 </a>
-                <a href="https://discord.gg/rCm28JwxVb" target="_blank">
+                <a href="https://discord.gg/rCm28JwxVb" target="_blank" rel="noopener noreferrer">
                   <img src="/discord.png"></img>
                 </a>
               </div>
