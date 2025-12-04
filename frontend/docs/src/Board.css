@@ -1,0 +1,243 @@
+
+.board-page {
+  height: 100vh;
+  background-image: url("https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/BotB-2-19%20-%20Edited.jpg");
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.board-content {
+  height: 90%;
+  width: 95%;
+  max-width: 1600px;
+  background-color: rgb(29, 29, 29);
+  border: 3px solid #B43F3F;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 3rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.board-content h1 {
+  color: #F8EDED;
+  margin: 0;
+  font-size: 3.5rem;
+}
+
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  width: 100%;
+  height: 100%;
+  max-height: calc(100% - 6rem); 
+  justify-items: center;
+  align-items: center;
+}
+
+.exec {
+  width: 100%;
+  max-width: 24rem;
+  height: 28rem;
+  background-color: #B43F3F;
+  border-radius: 12px;
+  box-shadow: 12px 12px rgba(0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+  gap: 1rem;
+  transition: 0.2s ease-in-out;
+}
+
+.exec:hover {
+  box-shadow: 16px 16px rgba(0, 0, 0);
+  transform: translateY(-10px);
+  transition: 0.2s ease-in-out;
+  .exec-photo {
+    width: 14rem;
+    height: 14rem;
+    transform: translateY(-10px);
+    transition: 0.2s ease-in-out;
+  }
+  .exec-name {
+    font-weight: 800;
+    transition: 0.2s ease-in-out;
+
+  }
+  .exec-role {
+    font-weight: 800;
+    transition: 0.2s ease-in-out;
+  }
+}
+
+.exec-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.exec-photo {
+  width: 12rem;
+  height: 12rem;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  border: 5px solid #7c2525;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(180, 63, 63, 0.6);
+  transition: 0.2s ease-in-out;
+}
+
+.exec-name {
+  text-transform: uppercase;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: rgba(29,29,29);
+  margin: 0;
+  line-height: 1.2;
+  transition: 0.2s ease-in-out;
+}
+
+.exec-role {
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #173B45;
+  margin: 0;
+  line-height: 1.1;
+  transition: 0.2s ease-in-out;
+}
+
+.exec-name h1 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.exec-role h2 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+@media (max-width: 900px) {
+  .board-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  
+  .exec {
+    max-width: 20rem;
+    height: 24rem;
+    padding: 1.8rem;
+    gap: 1rem;
+  }
+  
+  .exec-photo {
+    width: 10rem;
+    height: 10rem;
+    border: 4px solid #B43F3F;
+  }
+  
+  .exec-name {
+    font-size: 1.6rem;
+  }
+  
+  .exec-title, .exec-role {
+    font-size: 1.2rem;
+  }
+  
+  .board-content {
+    width: 92%;
+    height: 88%;
+    padding: 2.5rem;
+  }
+  
+  .board-content h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .board-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .exec {
+    max-width: 16rem;
+    height: 20rem;
+    padding: 1.5rem;
+    gap: 0.8rem;
+  }
+  
+  .exec-photo {
+    width: 8rem;
+    height: 8rem;
+    border: 4px solid #B43F3F;
+  }
+  
+  .exec-name {
+    font-size: 1.4rem;
+  }
+  
+  .exec-title, .exec-role {
+    font-size: 1.1rem;
+  }
+  
+  .board-content {
+    width: 96%;
+    height: 90%;
+    padding: 2rem;
+  }
+  
+  .board-content h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .board-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  
+  .exec {
+    max-width: 14rem;
+    height: 18rem;
+    padding: 1.2rem;
+    gap: 0.6rem;
+  }
+  
+  .exec-photo {
+    width: 7rem;
+    height: 7rem;
+    border: 3px solid #B43F3F;
+  }
+  
+  .exec-name {
+    font-size: 1.2rem;
+  }
+  
+  .exec-title, .exec-role {
+    font-size: 1rem;
+  }
+  
+  .board-content h1 {
+    font-size: 2rem;
+  }
+}

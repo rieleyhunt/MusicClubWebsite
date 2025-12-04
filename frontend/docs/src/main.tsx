@@ -2,11 +2,11 @@ import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./Events.css";
-import App from "./App.tsx";
-import Events from "./Events.tsx";
-import Gallery from "./Gallery.tsx";
-import Join from "./Join.tsx";
-import Login from "./Login.tsx";
+import App from "./App";
+import Events from "./Events";
+import Board from "./Board";
+import Join from "./Join";
+import Login from "./Login";
 
 function Root() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -19,7 +19,7 @@ function Root() {
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/Events" element={<Events {...({ isLoggedIn } as any)} />} />
-          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/Board" element={<Board />} />
           <Route path="/Join" element={<Join />} />
           <Route
             path="/Login"
