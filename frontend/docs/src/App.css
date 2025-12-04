@@ -34,8 +34,8 @@ a {
 .button-navbar {
   display: flex;
   background-color: transparent;
-  color: #000000;
-  border: solid 2px #000000;
+  color: rgb(29, 29, 29);
+  border: solid 2px rgb(29, 29, 29);
   font-weight: bold;
   box-shadow: 1.5px 1.5px #B43F3F;
   padding: 1rem 1rem;
@@ -66,10 +66,13 @@ a {
   font-weight: 1000;
   text-transform: uppercase;
   max-width: 50vw;
+  color: rgb(29, 29, 29);
+
 }
 
 .top-bar-logo h2 {
   font-size: clamp(0.6rem, 2vw, 1rem);
+  color: rgb(29, 29, 29);
 }
 
 .music-club-text {
@@ -196,7 +199,7 @@ a {
 }
 
 .footer {
-  background-color: #000000;
+  background-color: rgb(29, 29, 29);
   color: #ffffff !important;
   text-align: center;
   line-height: normal;

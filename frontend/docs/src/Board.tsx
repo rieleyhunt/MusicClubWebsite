@@ -1,29 +1,34 @@
-import React, { useEffect, useRef, useState } from "react";
+// Board.tsx
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./App.css";
+import "./Board.css";
 
-// const buttons = [
-//   { label: "Home", onClick: () => console.log("Home Clicked")},
-//   { label: "Events", onClick: () => console.log("Events Clicked")}
-// ]
-const App: React.FC = () => {
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const [inView, setInView] = useState(false);
+type Exec = {
+  _id?: string;
+  img: string;
+  name: string;
+  role: string;
+};
+
+const Board: React.FC = () => {
+  const [execs, setExecs] = useState<Exec[]>([]);
 
   useEffect(() => {
-    const node = headingRef.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
-      { threshold: 0.2 }
-    );
-
-    observer.observe(node);
-
-    return () => {
-      observer.unobserve(node);
+    const fetchExecs = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/execs');
+        if (response.ok) {
+          const data = await response.json();
+          setExecs(data);
+        } else {
+          console.error('Failed to fetch execs:', response.status);
+        }
+      } catch (error) {
+        console.error('Error fetching execs:', error);
+      }
     };
+
+    fetchExecs();
   }, []);
 
   return (
@@ -35,7 +40,7 @@ const App: React.FC = () => {
             <Link to="/">
               <img
                 src="https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/Carleton_Music_Club_Ravens_Only_Logo_1.svg"
-                alt="Carleton Music Club Logo"
+                alt="Carleon Music Club Logo"
                 className="musicClubLogo"
               />
             </Link>
@@ -61,29 +66,31 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* PAGE CONTENT */}
-        <div className="main-page">
-          <div className="hero">
-            <div className="transparent-box">
-              <div className="main-content">
-                <h1
-                  ref={headingRef}
-                  className={`we-are-carleton-music-club ${inView ? "animate" : ""}`}
-                  >
-                  We are the Official Carleton Music Club
-                </h1>
-                <p
-                  ref={headingRef}
-                  className={`fostering-a-community ${inView ? "animate" : ""}`}
-                  >
-                  Fostering a community of both beginner and experienced musicians
-                </p>
+      {/* Main page */}
+      <div className="board-page">
+        <div className="board-content">
+          <h1>Executive Board</h1>
+          <div className="board-grid">
+            {execs.map((exec) => (
+              <div key={exec._id || exec.name} className="exec">
+                <div 
+                  className="exec-photo"
+                  style={{
+                    backgroundImage: `url(${exec.img || '/profilephoto.jpg'})`
+                  }}
+                ></div>
+                <div className="exec-text">
+                  <div className="exec-name"><h1>{exec.name}</h1></div>
+                  <div className="exec-role"><h2>{exec.role}</h2></div>
+                </div>
               </div>
-            </div>
+              ))}
           </div>
+        </div>
+      </div>
 
 
-          <div className="footer">
+      <div className="footer">
             <div className="footer-text">
               <strong>Carleton Music Club</strong>
               <div className="address">
@@ -103,9 +110,8 @@ const App: React.FC = () => {
             </div>
           </div>
       </div>
-      </div>
     </>
   );
 };
 
-export default App;
+export default Board;

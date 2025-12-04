@@ -71,7 +71,14 @@ const eventSchema = new mongoose.Schema({
   location: String,
 }, { timestamps: true });
 
+const execSchema = new mongoose.Schema({
+  img: String,
+  name: String,
+  role: String,
+}, { timestamps: true });
+
 const Event = mongoose.model('Event', eventSchema);
+const Exec = mongoose.model('Exec', execSchema);
 
 // Get all events
 app.get('/events', async (req, res) => {
@@ -93,6 +100,57 @@ app.post('/events', async (req, res) => {
   } catch (err) {
     console.error('Error creating event:', err);
     res.status(400).json({ error: 'Failed to create event' });
+  }
+});
+
+// Delete an event
+app.delete('/events', async (req, res) => {
+  try {
+    const deletedEvent = Event.findOneAndDelete({ title: req.title });
+    if (!deletedEvent) {
+      console.error("Could not find event:", req.title);
+      return res.status(404).json({ error: "Could not find event" });
+    }
+  } catch (err) {
+    console.error("Error deleting event", err);
+    return res.status(500).json({ error: "Error deleting event"})
+  }
+});
+
+// Get all execs
+app.get('/execs', async (req, res) => {
+  try {
+    const execs = await Exec.find().sort({ createdAt: -1 });
+    res.json(execs);
+  } catch (err) {
+    console.error('Error fetching execs:', err);
+    res.status(500).json({ error: 'Failed to fetch execs' });
+  }
+});
+
+// Create an exec
+app.post('/execs', async (req, res) => {
+  try {
+    const exec = new Exec(req.body);
+    await exec.save();
+    res.status(201).json(exec);
+  } catch (err) {
+    console.error('Error creating exec: ', err);
+    res.status(400).json({ error: 'Failed to create exec' });
+  }
+});
+
+// Delete an exec
+app.delete('/execs', async (req, res) => {
+  try {
+    const deletedExec = Exec.findOneAndDelete({ name: req.name })
+    if (!deletedExec) {
+      console.error("Exec", req.name, "not found");
+      return res.status(404).json({ error: `Exec ${req.name} not found `});
+    }
+  } catch (err) {
+    console.error("There was a problem deleting an exec");
+    return res.status(500).json({ error: "There was a problem deleting an exec" });
   }
 });
 
