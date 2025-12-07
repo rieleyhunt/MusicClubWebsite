@@ -1,6 +1,4 @@
-import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HashRouter } from "react-router-dom";
 import "./Events.css";
 import App from "./App";
