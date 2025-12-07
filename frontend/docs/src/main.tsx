@@ -1,11 +1,13 @@
 import { createRoot } from "react-dom/client";
+import { useState } from "react";
 import { HashRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./Events.css";
 import App from "./App";
-import Events from "./Events";
-import Board from "./Board";
-import Join from "./Join";
-import Login from "./Login";
+import Events from "./Events.tsx";
+import Board from "./Board.tsx";
+import Join from "./Join.tsx";
+import Login from "./Login.tsx";
 
 function Root() {
   const [isLoggedIn, setIsLoggedIn] = useState(
