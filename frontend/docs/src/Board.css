@@ -58,27 +58,28 @@
   text-align: center;
   gap: 1rem;
   transition: 0.2s ease-in-out;
+  overflow: hidden;
 }
 
 .exec:hover {
   box-shadow: 16px 16px rgba(0, 0, 0);
   transform: translateY(-10px);
   transition: 0.2s ease-in-out;
-  .exec-photo {
-    width: 14rem;
-    height: 14rem;
-    transform: translateY(-10px);
-    transition: 0.2s ease-in-out;
-  }
-  .exec-name {
-    font-weight: 800;
-    transition: 0.2s ease-in-out;
+}
 
-  }
-  .exec-role {
-    font-weight: 800;
-    transition: 0.2s ease-in-out;
-  }
+.exec:hover .exec-photo {
+  transform: scale(1.05);
+  transition: 0.2s ease-in-out;
+}
+
+.exec:hover .exec-name {
+  font-weight: 800;
+  transition: 0.2s ease-in-out;
+}
+
+.exec:hover .exec-role {
+  font-weight: 800;
+  transition: 0.2s ease-in-out;
 }
 
 .exec-text {
@@ -89,6 +90,8 @@
 .exec-photo {
   width: 12rem;
   height: 12rem;
+  max-width: 12rem;
+  max-height: 12rem;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -108,6 +111,10 @@
   margin: 0;
   line-height: 1.2;
   transition: 0.2s ease-in-out;
+  width: 100%;
+  max-width: 18rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .exec-role {
@@ -118,6 +125,10 @@
   margin: 0;
   line-height: 1.1;
   transition: 0.2s ease-in-out;
+  width: 100%;
+  max-width: 18rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .exec-name h1 {
@@ -150,7 +161,17 @@
   .exec-photo {
     width: 10rem;
     height: 10rem;
+    max-width: 10rem;
+    max-height: 10rem;
     border: 4px solid #B43F3F;
+  }
+  
+  .exec-name {
+    max-width: 16rem;
+  }
+  
+  .exec-role {
+    max-width: 16rem;
   }
   
   .exec-name {
@@ -188,7 +209,17 @@
   .exec-photo {
     width: 8rem;
     height: 8rem;
+    max-width: 8rem;
+    max-height: 8rem;
     border: 4px solid #B43F3F;
+  }
+  
+  .exec-name {
+    max-width: 12rem;
+  }
+  
+  .exec-role {
+    max-width: 12rem;
   }
   
   .exec-name {
@@ -226,7 +257,17 @@
   .exec-photo {
     width: 7rem;
     height: 7rem;
+    max-width: 7rem;
+    max-height: 7rem;
     border: 3px solid #B43F3F;
+  }
+  
+  .exec-name {
+    max-width: 10rem;
+  }
+  
+  .exec-role {
+    max-width: 10rem;
   }
   
   .exec-name {
