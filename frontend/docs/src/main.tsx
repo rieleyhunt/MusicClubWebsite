@@ -1,6 +1,7 @@
 import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import "./Events.css";
 import App from "./App";
 import Events from "./Events";
@@ -14,8 +15,7 @@ function Root() {
   );
 
   return (
-    <StrictMode>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/Events" element={<Events {...({ isLoggedIn } as any)} />} />
@@ -26,8 +26,7 @@ function Root() {
             element={<Login onLogin={() => setIsLoggedIn(true)} />}
           />
         </Routes>
-      </BrowserRouter>
-    </StrictMode>
+    </HashRouter>
   );
 }
 

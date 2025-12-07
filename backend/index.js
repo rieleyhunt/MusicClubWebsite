@@ -201,21 +201,6 @@ app.get("/admin", (req, res) => {
   }
 });
 
-// ----- Serve static files (production) -----
-if (process.env.NODE_ENV === 'production') {
-  const path = require('path');
-  
-  app.use(express.static(path.join(__dirname, '../frontend/docs/dist')));
-  
-  app.get('*', (req, res) => {
-    if (req.path.startsWith('/api') || req.path.startsWith('/events') || req.path.startsWith('/execs') || req.path.startsWith('/health') || req.path.startsWith('/login') || req.path.startsWith('/admin') || req.path.startsWith('/r2') || req.path.startsWith('/upload')) {
-      return res.status(404).json({ error: 'API endpoint not found' });
-    }
-    
-    res.sendFile(path.join(__dirname, '../frontend/docs/dist', 'index.html'));
-  });
-}
-
 // ----- Start server -----
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, '0.0.0.0', () => {
