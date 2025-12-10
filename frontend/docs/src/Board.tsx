@@ -46,7 +46,7 @@ const Board: React.FC = () => {
             </Link>
             <div className="music-club-text">
               <h1>Carleton Music Club</h1>
-              <h2>Live - Laugh - Love</h2>
+              <h2>Play - Learn - Create</h2>
             </div>
           </div>
 
