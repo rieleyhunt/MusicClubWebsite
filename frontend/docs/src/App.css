@@ -1,7 +1,7 @@
 /* We are the Carleton Music Club */
 
 .colors {
-  color: #F8EDED;
+  color: #FFFFFF;
   color: #FF8225;
   color: #B43F3F;
   color: #173B45;
@@ -49,7 +49,7 @@ a {
   display: flex;
   justify-content: space-between; /* logo left, buttons right */
   align-items: center;
-  background-color: #F8EDED;
+  background-color: #FFFFFF;
   padding: 0.4rem 2rem;
 }
 
@@ -82,7 +82,7 @@ a {
 
 .button-navbar:hover {
   transform: translateY(-5px);
-  background-color: #F8EDED;
+  background-color: #FFFFFF;
   box-shadow: 3px 3px #B43F3F;
   transition: all 0.2s ease, transform 0.2s ease;
 }
@@ -168,7 +168,7 @@ a {
 
 .button {
   background-color: transparent;
-  color: #F8EDED;
+  color: #FFFFFF;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -178,14 +178,14 @@ a {
 
 .button:hover {
   transform: translateY(-5px);
-  background-color: #F8EDED;
+  background-color: #FFFFFF;
 }
 
 .main-page {
   display: flex;
   position: relative;
   flex-direction: column;
-  background-color: #F8EDED;
+  background-color: #FFFFFF;
   height: auto;
   width: 100vw;
   text-align: left;
