@@ -1,6 +1,4 @@
-import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import "./Join.css";
 
 const Join: React.FC = () => {
