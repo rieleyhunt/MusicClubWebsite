@@ -23,16 +23,10 @@ const allowedOrigins = [
 
 app.use(cors({
   origin(origin, cb) {
-    // allow REST tools / SSR / health checks with no origin
     if (!origin) return cb(null, true);
     
     // Check if origin is in allowed list
     if (allowedOrigins.includes(origin)) {
-      return cb(null, true);
-    }
-    
-    // Allow any AWS App Runner subdomain
-    if (origin && origin.includes('awsapprunner.com')) {
       return cb(null, true);
     }
     
