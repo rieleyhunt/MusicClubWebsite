@@ -31,8 +31,8 @@ const Join: React.FC = () => {
               </div>
             </div>
             <div className="join-socials-social-section">
-              <h1 className="join-our-socials">Join our socials!</h1>
               <div className="join-socials-box">
+              <h1 className="join-our-socials">Join our socials!</h1>
                 <div className="join-socials-grid">
                   <a className="instagram" href="http://instagram.com/musicclubcu" target="_blank" rel="noopener noreferrer">
                     <img src="/Instagram_Red.svg" alt="Follow us on Instagram"></img>

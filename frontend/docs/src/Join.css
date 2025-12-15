@@ -99,11 +99,12 @@
     border: solid 4px black;
     border-radius: 12px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 20px;
     width: 80%;
-    max-width: 20%;
+    max-width: 50%;
 }
 
 .join-socials-grid {
@@ -117,12 +118,15 @@
 .join-socials-grid img {
   display: inline-block;
   width: calc(128px + 10vw);
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 80%;
+  max-height: 80%;
 }
 
 .join-socials-grid .discord,
 .join-socials-grid .instagram {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transform: scale(1.0);
   transition: all 0.2s ease-in-out;
 }
@@ -171,16 +175,10 @@
 
 @media (max-width: 528px) {
   .join-socials-grid {
-    gap: 32px;
-  }
-}
-
-@media (max-width: 405px) {
-  .join-socials-grid {
-    gap: 16px;
+    gap: 24px;
   }
   .join-socials-box {
-    max-width: 70%
+    max-width: 80%;
   }
   .join-text-box {
     font-size: 3vw;
@@ -197,6 +195,6 @@
     padding-bottom: 12px;
     line-height: normal;
     font-size: 6vw;
+  }
 }
 
-}

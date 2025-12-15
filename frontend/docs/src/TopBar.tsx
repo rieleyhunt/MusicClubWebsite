@@ -13,7 +13,7 @@ function TopBar() {
             </Link>
             <div className="music-club-text">
               <h1>Carleton Music Club</h1>
-              <h2>Play - Learn - Create</h2>
+              <h2>Play - Learn - Jam</h2>
             </div>
           </div>
 
