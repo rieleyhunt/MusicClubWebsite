@@ -1,4 +1,6 @@
 import { useState, FormEvent } from "react";
+import Footer from "./Footer";
+import TopBar from "./TopBar";
 
 interface LoginProps {
   onLogin?: () => void;
@@ -30,19 +32,23 @@ export default function Login({ onLogin }: LoginProps) {
   }
 
   return (
-    <form onSubmit={submit}>
-      <input
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUser(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPass(e.target.value)}
-      />
-      <button type="submit">Login</button>
-    </form>
+    <div className="app-container">
+      <TopBar />
+      <form onSubmit={submit}>
+        <input
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUser(e.target.value)}
+          />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPass(e.target.value)}
+          />
+        <button type="submit">Login</button>
+      </form>
+      <Footer />
+    </div>
   );
 }

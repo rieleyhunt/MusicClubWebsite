@@ -10,24 +10,31 @@
     padding: 24px;
 }
 
+.join-page {
+  background-image: url("https://pub-b659d9958160414ca1535341505c5f7c.r2.dev/joinpagebackground.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 100%;
+  min-height: 100vh;
+}
+
 .join-text-box {
     background-color: #ffffff;
     text-align: center;
-    padding: 12px;
-    font-size: 2vw;
-    width: min(800px, 90%);
+    padding: 16px;
+    font-size: 1.6vw;
+    width: min(1200px, 90%);
     border-radius: 12px;
     box-shadow: 10px 10px 1px #B43F3F;
     border: 5px solid black;
 }
 
-.join-text-box h1 {
-
-}
-
 /* This is for the text h1 */
 .join-our-socials {
     text-align: center;
+    font-size: 3.5vw;
     padding: 20px;
 }
 
@@ -45,16 +52,37 @@
 
 .join-socials-text-section h1 {
     padding-bottom: 12px;
+    line-height: normal;
+    font-size: 3.5vw;
 }
 
 .join-socials-text-section .intro-left {
+    border: solid 4px black;
+    border-radius: 12px;
+    box-shadow: 5px 5px 1px #B43F3F;
+    background-color: white;
+    margin-bottom: 10px;
+    max-width: 60%;
+    font-size: 1.5vw;
+    line-height: normal;
     text-align: left;
-    padding: 20px;
+    padding: 46px;
+    align-self: start;
+    margin-left: 10%;
 }
 
 .join-socials-text-section .intro-right {
+    border: solid 4px black;
+    box-shadow: 5px 5px 1px #B43F3F;
+    background-color: white;
+    border-radius: 12px;
+    max-width: 60%;
+    font-size: 1.5vw;
+    line-height: normal;
     text-align: right;
-    padding: 20px;
+    padding: 46px;
+    align-self: end;
+    margin-right: 10%;
 }
 
 .join-socials-social-section {
@@ -68,38 +96,40 @@
 .join-socials-box {
     background-color: #ffffff;
     box-shadow: 4px 4px 1px black;
-    border: solid 3px black;
+    border: solid 4px black;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    width: 40%;
-    height: 80%;
+    width: 80%;
+    max-width: 20%;
 }
 
 .join-socials-grid {
   display: flex;
   align-content: center;
   justify-content: center;
-  gap: 24px;
+  gap: 64px;
   padding: 24px;
 }
 
 .join-socials-grid img {
   display: inline-block;
-  width: auto;
-  height: 80px;
-  transition: 0.2s all;
+  width: calc(128px + 10vw);
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.join-socials-grid .discord,
+.join-socials-grid .instagram {
+  transform: scale(1.0);
+  transition: all 0.2s ease-in-out;
 }
 
 .join-socials-grid .discord:hover,
 .join-socials-grid .instagram:hover  {
-  display: inline-block;
-  width: auto;
-  height: 80px;
-  transform: translateY(-2.5px);
-  transition: 0.2s ease-in all;
+  transform: scale(1.1);
 }
 
 /* Wipe-in animation styles */
@@ -124,4 +154,49 @@
     opacity: 1;
     clip-path: inset(0 0 0 0);
   }
+}
+
+@media (max-width: 1028px) {
+  .join-socials-grid {
+    gap: 32px;
+  }
+  .join-socials-box {
+    max-width: 50%
+  }
+  .join-socials-text-section .intro-left,
+  .join-socials-text-section .intro-right {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 528px) {
+  .join-socials-grid {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 405px) {
+  .join-socials-grid {
+    gap: 16px;
+  }
+  .join-socials-box {
+    max-width: 70%
+  }
+  .join-text-box {
+    font-size: 3vw;
+  }
+  .join-our-socials {
+    font-size: 10vw;
+  }
+  .join-socials-text-section .intro-left,
+  .join-socials-text-section .intro-right {
+    max-width: 100%;
+    font-size: 4vw;
+  }
+  .join-socials-text-section h1 {
+    padding-bottom: 12px;
+    line-height: normal;
+    font-size: 6vw;
+}
+
 }

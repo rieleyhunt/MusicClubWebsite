@@ -3,3 +3,6 @@ docs/.env
 node_modules
 backend/node_modules
 frontend/node_modules
+bcrypt.py
+__pycache__/bcrypt.cpython-312.pyc
+__pycache__/encrypt.cpython-312.pyc
