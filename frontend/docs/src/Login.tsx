@@ -19,14 +19,19 @@ export default function Login({ onLogin }: LoginProps) {
       body: JSON.stringify({ username, password }),
     });
 
+    const data = await res.json();
+
+    console.log(data?.error);
+    
+    console.log(res);
     if (!res.ok) {
-      alert("Invalid login");
+
+      alert("Invalid login:");
       return;
     } else {
         alert("Login successful");
     }
 
-    const data = await res.json();
     localStorage.setItem("token", data.token);
     onLogin?.();
   }

@@ -57,6 +57,10 @@ mongoose.connect(process.env.MONGO_URI);
 mongoose.connection.on('connected', () => console.log('Mongo connected'));
 mongoose.connection.on('error', err => console.error('Mongo error:', err));
 
+mongoose.connection.once("open", () => {
+  console.log("Mongo DB name:", mongoose.connection.name);
+});
+
 // ----- Mongoose schema/model -----
 const eventSchema = new mongoose.Schema({
   img: String,
@@ -100,9 +104,12 @@ app.post('/events', async (req, res) => {
 // Delete an event
 app.delete('/events', async (req, res) => {
   try {
-    const deletedEvent = Event.findOneAndDelete({ title: req.title });
+    console.log(await Event.find());
+    console.log("trying to fuck");
+    console.log(req.body.title);
+    const deletedEvent = await Event.findOneAndDelete({ title: req.body.title });
     if (!deletedEvent) {
-      console.error("Could not find event:", req.title);
+      console.error("Could not find event:", req.body.title);
       return res.status(404).json({ error: "Could not find event" });
     }
   } catch (err) {
@@ -170,8 +177,10 @@ app.post("/login", async (req, res) => {
 
   if (username !== adminUsername)
     return res.status(401).json({ error: "Invalid Credentials" })
+  console.log(username);
 
   const valid = await bcrypt.compare(password, adminPasswordHash);
+  console.log(valid);
   if (!valid)
     return res.status(401).json({ error: "Invalid Credentials" });
 

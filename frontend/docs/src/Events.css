@@ -49,8 +49,30 @@
   background-color: #B43F3F;
 }
 
+.event-delete-button {
+  position: absolute;
+  background: none;
+	color: inherit;
+  border: inherit;
+  width: 50px;
+}
+
+.event-delete-button:hover {
+  cursor: pointer;
+}
+
+.event-delete {
+  transform: translate(-20px, -20px);
+}
+
+.event-delete svg {
+  width: 50px;
+  height: auto;
+}
+
 .event-photo {
   display: flex;
+  align-items: start;
   border-radius: 6px;
 }
 
@@ -68,6 +90,7 @@
 .event-where h2 {
   white-space: nowrap;
 }
+
 
 /* Responsive stack on smaller screens */
 @media (max-width: 1074px) {

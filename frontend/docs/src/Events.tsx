@@ -39,7 +39,7 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
       img: eventImageUrl
     };
 
-    const res = await fetch("http://localhost:3001/events", {
+    const res = await fetch(`${API}/events`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +66,28 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
     setEventImageUrl("");
   }
 
- const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  async function handleDeleteEvent(eventName: string) {
+    console.log("handle delete event");
+    const res = await fetch(`${API}/events`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        title: eventName,
+      }),
+    });
+
+    if (res.ok) {
+      console.log("backend responeded, with eventname", eventName);
+    }
+    if (!res.ok) {
+      console.error(`Failed to delete event ${eventName}`);
+    }
+  } 
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 
     const files = e.target.files;
     if (!files || files.length === 0) return;
@@ -76,7 +97,7 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
     const formData = new FormData();
     formData.append("file", file);
 
-    const res = await fetch("http://localhost:3001/upload", {
+    const res = await fetch(`${API}/upload`, {
       method: "POST",
       body: formData
     });
@@ -141,6 +162,15 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
               <div className="event-card" key={event._id || event.title}>
                 <div className="event-photo">
                   <img src={event.img}></img>
+                  {isLoggedIn && (
+                  <div className="event-delete">
+                    <button className="event-delete-button" onClick={() => handleDeleteEvent(event.title)}>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#f00c0c" className="size-6">
+                        <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                  )}
                 </div>
                 <div className="event-title">
                   <h1>{event.title}</h1>
