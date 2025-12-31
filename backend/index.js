@@ -8,6 +8,7 @@ const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const authenticate = require('./authMiddleware');
 require('dotenv').config();
 
 
@@ -42,7 +43,7 @@ app.use(express.json());
 // ----- R2 uploader routes -----
 app.use('/r2', r2Uploader);
 
-app.post("/upload", upload.single("file"), async (req, res) => {
+app.post("/upload", authenticate, upload.single("file"), async (req, res) => {
   try {
     const url = await r2Uploader(req.file);
     res.json({ url });
@@ -90,7 +91,7 @@ app.get('/events', async (req, res) => {
 });
 
 // Create an event
-app.post('/events', async (req, res) => {
+app.post('/events', authenticate, async (req, res) => {
   try {
     const event = new Event(req.body);
     await event.save();
@@ -102,11 +103,8 @@ app.post('/events', async (req, res) => {
 });
 
 // Delete an event
-app.delete('/events', async (req, res) => {
+app.delete('/events', authenticate, async (req, res) => {
   try {
-    console.log(await Event.find());
-    console.log("trying to fuck");
-    console.log(req.body.title);
     const deletedEvent = await Event.findOneAndDelete({ title: req.body.title });
     if (!deletedEvent) {
       console.error("Could not find event:", req.body.title);
@@ -130,7 +128,7 @@ app.get('/execs', async (req, res) => {
 });
 
 // Create an exec
-app.post('/execs', async (req, res) => {
+app.post('/execs', authenticate, async (req, res) => {
   try {
     const exec = new Exec(req.body);
     await exec.save();
@@ -142,12 +140,12 @@ app.post('/execs', async (req, res) => {
 });
 
 // Delete an exec
-app.delete('/execs', async (req, res) => {
+app.delete('/execs', authenticate, async (req, res) => {
   try {
-    const deletedExec = Exec.findOneAndDelete({ name: req.name })
+    const deletedExec = await Exec.findOneAndDelete({ name: req.body.name })
     if (!deletedExec) {
-      console.error("Exec", req.name, "not found");
-      return res.status(404).json({ error: `Exec ${req.name} not found `});
+      console.error("Exec", req.body.name, "not found");
+      return res.status(404).json({ error: `Exec ${req.body.name} not found `});
     }
   } catch (err) {
     console.error("There was a problem deleting an exec");
@@ -185,23 +183,10 @@ app.post("/login", async (req, res) => {
     return res.status(401).json({ error: "Invalid Credentials" });
 
   const token = jwt.sign({ username }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
+    expiresIn: "30d",
   });
 
   res.json({ token });
-});
-
-app.get("/admin", (req, res) => {
-  const auth = req.headers.authorization;
-  if (!auth) return res.status(401).send("Unauthorized");
-
-  const token = auth.split(" ")[1];
-  try {
-    jwt.verify(token, process.env.JWT_SECRET);
-    res.json({ message: "Welcome to the admin dashboard!!!" }); 
-  } catch {
-    res.status(401).send("Invalid token");
-  }
 });
 
 // ----- Start server -----

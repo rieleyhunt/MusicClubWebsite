@@ -13,13 +13,21 @@ function Root() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     !!localStorage.getItem("token")
   );
+  const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
+  
 
   return (
       <HashRouter>
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/Events" element={<Events {...({ isLoggedIn } as any)} />} />
-          <Route path="/Board" element={<Board />} />
+          <Route path="/Events" element={<Events
+            API={API}
+            isLoggedIn={isLoggedIn}
+          />} />
+          <Route path="/Board" element={<Board 
+            API={API}
+            isLoggedIn={isLoggedIn}
+          />} />
           <Route path="/Join" element={<Join />} />
           <Route
             path="/Login"

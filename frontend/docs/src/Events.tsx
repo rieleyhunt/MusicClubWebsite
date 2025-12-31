@@ -13,13 +13,13 @@ type Event = {
 };
 
 interface EventsProps {
+  API: string;
   isLoggedIn: boolean;
 }
 
-const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
+const Events: React.FC<EventsProps> = ({ isLoggedIn, API }) => {
   const [events, setEvents] = useState<Event[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
   const [eventImageUrl, setEventImageUrl] = useState("");
   const [newTitle, setNewTitle] = useState("");
   const [newDate, setNewDate] = useState("");
@@ -67,7 +67,6 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
   }
 
   async function handleDeleteEvent(eventName: string) {
-    console.log("handle delete event");
     const res = await fetch(`${API}/events`, {
       method: "DELETE",
       headers: {
@@ -99,6 +98,9 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
 
     const res = await fetch(`${API}/upload`, {
       method: "POST",
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      },
       body: formData
     });
 
@@ -111,22 +113,17 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
   };
 
   useEffect(() => {
-    // Ensure proper URL construction - handle empty API and edge cases
-    let url;
-    if (!API) {
-      url = "/events";
-    } else {
-      // Remove trailing slash from API if present
-      const cleanAPI = API.endsWith("/") ? API.slice(0, -1) : API;
-      url = `${cleanAPI}/events`;
-    }
-    console.log("API value:", API);
-    console.log("Constructed URL:", url);
-    fetch(url)
-      .then((r) => r.json())
-      .then(setEvents)
-      .catch((err) => console.error("Error fetching events:", err));
-  }, []);
+    fetch(`${API}/events`, {
+      method: "GET",
+    }).then((res) => {
+      if (!res.ok) {
+        throw new Error("Unable to fetch events");
+      }
+      return res.json()
+    })
+    .then(setEvents)
+    .catch((err) => console.error("Error fetching events: ", err));
+  });
 
   useEffect(() => {
     const titles = document.querySelectorAll(".event-title h1");
@@ -149,14 +146,7 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
           <div className="events-introduction">
           </div>
           <h1 className="Events">Upcoming Events</h1>
-          {isLoggedIn && (
-            <button
-              className="add-event-button"
-              onClick={() => setShowModal(true)}
-            >
-              +
-            </button>
-          )}
+          
           <div className="events-grid">
             {events.map((event) => (
               <div className="event-card" key={event._id || event.title}>
@@ -184,39 +174,47 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn }) => {
               </div>
             ))}
           </div>
+          {isLoggedIn && (
+            <button
+              className="add-event-button"
+              onClick={() => setShowModal(true)}
+            >
+              Add Event
+            </button>
+          )}
+          {showModal && (
+            <div className="modal-backdrop">
+              <div className="modal">
+                <h2>Add Event</h2>
+
+                <input
+                  placeholder="Title"
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
+                />
+
+                <input
+                  placeholder="Date"
+                  value={newDate}
+                  onChange={(e) => setNewDate(e.target.value)}
+                />
+
+                <input
+                  placeholder="Location"
+                  value={newLocation}
+                  onChange={(e) => setNewLocation(e.target.value)}
+                />
+                <input type="file" accept="image/*" onChange={handleFileChange} />
+
+                <div className="modal-buttons">
+                  <button onClick={() => setShowModal(false)}>Cancel</button>
+                  <button onClick={saveEvent}>Save</button>
+                </div>
+              </div>
+            </div>
+          )}
           <Footer />
         </div>
-      {showModal && (
-        <div className="modal-backdrop">
-          <div className="modal">
-            <h2>Add Event</h2>
-
-            <input
-              placeholder="Title"
-              value={newTitle}
-              onChange={(e) => setNewTitle(e.target.value)}
-            />
-
-            <input
-              placeholder="Date"
-              value={newDate}
-              onChange={(e) => setNewDate(e.target.value)}
-            />
-
-            <input
-              placeholder="Location"
-              value={newLocation}
-              onChange={(e) => setNewLocation(e.target.value)}
-            />
-            <input type="file" accept="image/*" onChange={handleFileChange} />
-
-            <div className="modal-buttons">
-              <button onClick={() => setShowModal(false)}>Cancel</button>
-              <button onClick={saveEvent}>Save</button>
-            </div>
-          </div>
-      </div>
-      )}
       </div>
     </>
   );

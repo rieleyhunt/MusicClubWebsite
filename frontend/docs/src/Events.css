@@ -91,8 +91,17 @@
   white-space: nowrap;
 }
 
+.add-event-button {
+  background-color: rgb(16, 190, 16);
+  margin: 10px;
+  padding: 10px;
+  border-radius: 8px;
+}
 
-/* Responsive stack on smaller screens */
+.add-event-button:hover {
+  cursor: pointer;
+}
+
 @media (max-width: 1074px) {
   .events-grid {
     grid-template-columns: 1fr 1fr;
