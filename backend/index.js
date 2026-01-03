@@ -175,10 +175,8 @@ app.post("/login", async (req, res) => {
 
   if (username !== adminUsername)
     return res.status(401).json({ error: "Invalid Credentials" })
-  console.log(username);
 
   const valid = await bcrypt.compare(password, adminPasswordHash);
-  console.log(valid);
   if (!valid)
     return res.status(401).json({ error: "Invalid Credentials" });
 

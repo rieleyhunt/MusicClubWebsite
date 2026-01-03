@@ -3,6 +3,8 @@ import "./Events.css";
 import TopBar from "./TopBar";
 import Footer from "./Footer";
 import { autoShrinkText } from "./autoshrink";
+import { authFetch } from "./authFetch.ts";
+import { useAuth } from "./AuthContext";
 
 type Event = {
   _id?: string;
@@ -14,16 +16,17 @@ type Event = {
 
 interface EventsProps {
   API: string;
-  isLoggedIn: boolean;
 }
 
-const Events: React.FC<EventsProps> = ({ isLoggedIn, API }) => {
+const Events: React.FC<EventsProps> = ({ API }) => {
   const [events, setEvents] = useState<Event[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [eventImageUrl, setEventImageUrl] = useState("");
   const [newTitle, setNewTitle] = useState("");
   const [newDate, setNewDate] = useState("");
   const [newLocation, setNewLocation] = useState("");
+
+  const { logout, isLoggedIn } = useAuth();
 
   async function saveEvent() {
     console.log(newTitle, newDate, newLocation, eventImageUrl);
@@ -67,22 +70,30 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn, API }) => {
   }
 
   async function handleDeleteEvent(eventName: string) {
-    const res = await fetch(`${API}/events`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        title: eventName,
-      }),
-    });
 
-    if (res.ok) {
-      console.log("backend responeded, with eventname", eventName);
-    }
-    if (!res.ok) {
-      console.error(`Failed to delete event ${eventName}`);
+    try {
+      const res = await authFetch(
+        `${API}/events`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: eventName,
+          }),
+        },
+        logout  
+      );
+
+      if (res.ok) {
+        console.log("backend responeded, with eventname", eventName);
+      }
+      if (!res.ok) {
+        console.error(`Failed to delete event ${eventName}`);
+      }
+    } catch(err) {
+      console.error(err);
     }
   } 
 
@@ -96,19 +107,24 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn, API }) => {
     const formData = new FormData();
     formData.append("file", file);
 
-    const res = await fetch(`${API}/upload`, {
-      method: "POST",
-      headers: {
-        "Authorization": "Bearer " + localStorage.getItem("token")
-      },
-      body: formData
-    });
+    try {
+      const res = await authFetch(
+        `${API}/upload`,
+        {
+          method: "POST",
+          body: formData
+        },
+        logout
+      );
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (data.url) {
-      setEventImageUrl(data.url);
-      console.log("Uploaded image URL:", data.url);
+      if (data.url) {
+        setEventImageUrl(data.url);
+        console.log("Uploaded image URL:", data.url);
+      }
+    } catch(err) {
+      console.error(err);
     }
   };
 
@@ -123,7 +139,7 @@ const Events: React.FC<EventsProps> = ({ isLoggedIn, API }) => {
     })
     .then(setEvents)
     .catch((err) => console.error("Error fetching events: ", err));
-  });
+  }, [API]);
 
   useEffect(() => {
     const titles = document.querySelectorAll(".event-title h1");

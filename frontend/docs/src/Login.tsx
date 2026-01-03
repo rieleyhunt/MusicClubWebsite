@@ -1,14 +1,13 @@
 import { useState, FormEvent } from "react";
 import Footer from "./Footer";
 import TopBar from "./TopBar";
+import { useAuth } from "./AuthContext";
 
-interface LoginProps {
-  onLogin?: () => void;
-}
-
-export default function Login({ onLogin }: LoginProps) {
+export default function Login() {
   const [username, setUser] = useState<string>("");
   const [password, setPass] = useState<string>("");
+
+  const { login, logout, isLoggedIn } = useAuth();
 
   async function submit(e: FormEvent) {
     e.preventDefault();
@@ -20,39 +19,42 @@ export default function Login({ onLogin }: LoginProps) {
     });
 
     const data = await res.json();
-
-    console.log(data?.error);
     
-    console.log(res);
     if (!res.ok) {
-
       alert("Invalid login:");
       return;
     } else {
         alert("Login successful");
     }
 
-    localStorage.setItem("token", data.token);
-    onLogin?.();
+    login(data.token);
   }
+
 
   return (
     <div className="app-container">
       <TopBar />
-      <form onSubmit={submit}>
-        <input
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUser(e.target.value)}
-          />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPass(e.target.value)}
-          />
-        <button type="submit">Login</button>
-      </form>
+      {!isLoggedIn && (
+        <form onSubmit={submit}>
+          <input
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUser(e.target.value)}
+            />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPass(e.target.value)}
+            />
+          <button type="submit">Login</button>
+        </form>
+      )}
+      {isLoggedIn && (
+        <form onSubmit={logout}>
+          <button type="submit">Logout</button>
+        </form>
+      )}
       <Footer />
     </div>
   );

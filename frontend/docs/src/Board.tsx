@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import TopBar from "./TopBar";
 import Footer from "./Footer";
 import "./Board.css";
+import { authFetch } from "./authFetch";
+import { useAuth  } from "./AuthContext";
 
 type Exec = {
   _id?: string;
@@ -13,18 +15,18 @@ type Exec = {
 
 interface BoardProps {
   API: string
-  isLoggedIn: boolean;
 }
 
-const Board: React.FC<BoardProps> = ({ isLoggedIn, API }) => {
+const Board: React.FC<BoardProps> = ({ API }) => {
   const [execs, setExecs] = useState<Exec[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [name, setNewName] = useState("");
   const [role, setNewRole] = useState("");
   const [execImageUrl, setExecImageUrl] = useState("");
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { logout, isLoggedIn } = useAuth();
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
@@ -33,13 +35,14 @@ const Board: React.FC<BoardProps> = ({ isLoggedIn, API }) => {
     const formData = new FormData();
     formData.append("file", file);
 
-    const res = await fetch(`${API}/upload`, {
-      method: "POST",
-      headers: {
-        "Authorization": "Bearer " + localStorage.getItem("token")
+    const res = await authFetch(
+        `${API}/upload`,
+      {
+        method: "POST",
+        body: formData
       },
-      body: formData
-    });
+      logout,
+    );
 
     const data = await res.json();
 
@@ -61,49 +64,65 @@ const Board: React.FC<BoardProps> = ({ isLoggedIn, API }) => {
       role: role,
       img: execImageUrl
     };
+    
+    try {
+      const res = await authFetch(
+        `${API}/execs`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body)
+        },
+        logout,
+      );
 
-    const res = await fetch(`${API}/execs`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("token")
-      },
-      body: JSON.stringify(body)
-    });
+      if (!res.ok) {
+        alert("Error saving executive");
+        return;
+      }
 
-    if (!res.ok) {
-      alert("Error saving executive");
-      return;
+      const savedExec = await res.json();
+
+      // Add to UI
+      setExecs((prev) => [...prev, savedExec]);
+
+      // Close modal & clear form
+      setShowModal(false);
+      setNewName("");
+      setNewRole("");
+      setExecImageUrl("");
+    } catch(err) {
+      console.error(err);
     }
-
-    const savedExec = await res.json();
-
-    // Add to UI
-    setExecs((prev) => [...prev, savedExec]);
-
-    // Close modal & clear form
-    setShowModal(false);
-    setNewName("");
-    setNewRole("");
-    setExecImageUrl("");
   }
 
   async function handleDeleteExec(execName: string) {
-    const res = await fetch(`${API}/execs`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        name: execName,
-      }),
-    });
-    if (res.ok) {
-      console.log("backend responded, with execName", execName);
-    }
-    if (!res.ok) {
-      console.error(`Failed to delete exec ${execName}`);
+
+    try {
+      const res = await authFetch(
+          `${API}/execs`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: execName,
+          }),
+        },
+        logout
+      );
+
+      if (res.ok) {
+        console.log("backend responded, with execName", execName);
+      }
+      if (!res.ok) {
+        console.error(`Failed to delete exec ${execName}`);
+      }
+    } catch(err) {
+      console.error(err);
     }
   } 
 
@@ -123,7 +142,7 @@ const Board: React.FC<BoardProps> = ({ isLoggedIn, API }) => {
     };
 
     fetchExecs();
-  }, []);
+  }, [API]);
 
   return (
     <>
@@ -165,13 +184,13 @@ const Board: React.FC<BoardProps> = ({ isLoggedIn, API }) => {
                 className="add-event-button"
                 onClick={() => setShowModal(true)}
               >
-                Add Event
+                Add Exec
               </button>
             )}
             {showModal && (
               <div className="modal-backdrop">
                 <div className="modal">
-                  <h2>Add Executive</h2>
+                  <h2 className="add-executive">Add Executive</h2>
                   <input
                     placeholder="Name"
                     value={name}

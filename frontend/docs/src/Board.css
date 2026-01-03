@@ -226,6 +226,10 @@
   }
 }
 
+.modal .add-executive {
+  color: white;
+}
+
 @media (max-width: 600px) {
   .board-grid {
     grid-template-columns: repeat(2, 1fr);
