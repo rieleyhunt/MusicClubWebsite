@@ -1,5 +1,8 @@
+import { useAuth } from "./AuthContext"
+import { Link } from "react-router-dom";
 
 function Footer() {
+    const { isLoggedIn } = useAuth();
     return (
         <div className="footer">
             <div className="footer-text">
@@ -17,6 +20,14 @@ function Footer() {
                 <img src="/discord.png" alt="Discord"></img>
                 </a>
             </div>
+                {!isLoggedIn && (
+                    <div className="footer-login">
+                        <p>Are you an executive?</p>
+                        <Link to="/Login">
+                            <button>Login</button>
+                        </Link>
+                    </div>
+                )}
             <p className="copyright">© 2025 Carleton Music Club. All rights reserved.</p>
             </div>
         </div>
