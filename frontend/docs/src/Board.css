@@ -103,21 +103,9 @@
   transition: 0.2s ease-in-out;
 }
 
-.event-card {
-  border-radius: 5px;
-  padding: 10px;
-  height: 33rem;
-  width: 20rem;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  background-color: #B43F3F;
-}
-
 .exec-delete-button {
-  position: absolute;
   background: none;
-	color: inherit;
+  color: inherit;
   border: inherit;
   width: 50px;
 }
@@ -127,13 +115,7 @@
 }
 
 .exec-delete {
-  position: absolute;
-  transform: translate(145px, -225px);
-}
-
-.exec-delete svg {
-  width: 50px;
-  height: auto;
+  align-self: flex-end;
 }
 
 .exec-name {

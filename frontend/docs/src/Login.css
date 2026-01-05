@@ -1,0 +1,25 @@
+
+.login-form {
+    display: flex;
+    justify-content: center;
+}
+
+.login-form form {
+    display: flex;
+    gap: 10px;
+    margin: 5px;
+}
+
+.login-form form input, .login-form form button {
+    padding: 5px;
+}
+
+.logout-form {
+    display: flex;
+    justify-content: center;
+}
+
+.logout-form button {
+    padding: 5px;
+    margin: 5px;
+}

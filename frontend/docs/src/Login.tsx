@@ -2,6 +2,7 @@ import { useState, FormEvent } from "react";
 import Footer from "./Footer";
 import TopBar from "./TopBar";
 import { useAuth } from "./AuthContext";
+import "./Login.css";
 
 export default function Login() {
   const [username, setUser] = useState<string>("");
@@ -35,25 +36,29 @@ export default function Login() {
     <div className="app-container">
       <TopBar />
       {!isLoggedIn && (
-        <form onSubmit={submit}>
-          <input
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUser(e.target.value)}
-            />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPass(e.target.value)}
-            />
-          <button type="submit">Login</button>
-        </form>
+        <div className="login-form">
+          <form onSubmit={submit}>
+            <input
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUser(e.target.value)}
+              />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPass(e.target.value)}
+              />
+            <button type="submit">Login</button>
+          </form>
+        </div>
       )}
       {isLoggedIn && (
-        <form onSubmit={logout}>
-          <button type="submit">Logout</button>
-        </form>
+        <div className="logout-form">
+          <form onSubmit={logout}>
+            <button type="submit">Logout</button>
+          </form>
+        </div>
       )}
       <Footer />
     </div>

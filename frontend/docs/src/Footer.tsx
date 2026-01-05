@@ -1,8 +1,9 @@
 import { useAuth } from "./AuthContext"
 import { Link } from "react-router-dom";
+import "./Footer.css";
 
 function Footer() {
-    const { isLoggedIn } = useAuth();
+    const { logout, isLoggedIn } = useAuth();
     return (
         <div className="footer">
             <div className="footer-text">
@@ -24,8 +25,15 @@ function Footer() {
                     <div className="footer-login">
                         <p>Are you an executive?</p>
                         <Link to="/Login">
-                            <button>Login</button>
+                            <button className="exec-footer-login">Login</button>
                         </Link>
+                    </div>
+                )}
+                {isLoggedIn && (
+                    <div className="footer-logout">
+                        <form onSubmit={logout}>
+                            <button type="submit" className="exec-footer-logout">Logout</button>
+                        </form>
                     </div>
                 )}
             <p className="copyright">© 2025 Carleton Music Club. All rights reserved.</p>
