@@ -4,7 +4,11 @@ import TopBar from "./TopBar";
 import { useAuth } from "./AuthContext";
 import "./Login.css";
 
-export default function Login() {
+interface LoginProps {
+  API: string;
+}
+
+export default function Login({ API }: LoginProps) {
   const [username, setUser] = useState<string>("");
   const [password, setPass] = useState<string>("");
 
@@ -13,7 +17,7 @@ export default function Login() {
   async function submit(e: FormEvent) {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:3001/login", {
+    const res = await fetch(`${API}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),

@@ -15,7 +15,7 @@ function Root() {
         <Route path="/Events" element={<Events API={API} />} />
         <Route path="/Board" element={<Board API={API} />} />
         <Route path="/Join" element={<Join />} />
-        <Route path="/Login" element={<Login />} />
+        <Route path="/Login" element={<Login API={API} />} />
       </Routes>
     </HashRouter>
   );
