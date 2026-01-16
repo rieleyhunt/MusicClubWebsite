@@ -20,6 +20,7 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173',
   'https://musicclubwebsite-frontend.onrender.com',
+  "https://carletonmusic.ca",
 ].filter(Boolean);
 
 app.use(cors({
