@@ -142,14 +142,31 @@ const Events: React.FC<EventsProps> = ({ API }) => {
   }, [API]);
 
   useEffect(() => {
-    const titles = document.querySelectorAll(".event-title h1");
-    const whens = document.querySelectorAll(".event-when h2");
-    const wheres = document.querySelectorAll(".event-where h2");
+    const shrinkAll = () => {
+      const titles = document.querySelectorAll(".event-title h1");
+      const whens = document.querySelectorAll(".event-when h2");
+      const wheres = document.querySelectorAll(".event-where h2");
 
-    titles.forEach((el) => autoShrinkText(el as HTMLElement));
-    whens.forEach((el) => autoShrinkText(el as HTMLElement));
-    wheres.forEach((el) => autoShrinkText(el as HTMLElement));
-  }, []);
+      titles.forEach((el) => autoShrinkText(el as HTMLElement));
+      whens.forEach((el) => autoShrinkText(el as HTMLElement));
+      wheres.forEach((el) => autoShrinkText(el as HTMLElement));
+    };
+
+    shrinkAll();
+    window.addEventListener("resize", shrinkAll);
+    return () => window.removeEventListener("resize", shrinkAll);
+  }, [events]);
+
+  useEffect(() => {
+    const shrinkAll = () => {
+      const titles = document.querySelectorAll(".event-title h1");
+      titles.forEach((el) => autoShrinkText(el as HTMLElement));
+    };
+
+    shrinkAll();
+    window.addEventListener("resize", shrinkAll);
+    return () => window.removeEventListener("resize", shrinkAll);
+  }, [events]);
 
   return (
     <>

@@ -1,4 +1,3 @@
-
 .colors {
   color: #FFFFFF;
   color: #FF8225;
@@ -82,13 +81,30 @@
 
 }
 
-.event-title h1 {
-  white-space: nowrap;
-}
-
+.event-title h1,
 .event-when h2,
 .event-where h2 {
   white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  font-size: 2rem;
+  /* Dynamically shrink text to fit card using autoshrink.js */
+}
+
+.event-title,
+.event-when,
+.event-where {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.event-card {
+  padding: 15px;
 }
 
 .add-event-button {
