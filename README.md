@@ -2,8 +2,8 @@
 
 The Music Club Website Project is something that I built as the President of the Music Club for members of the music club community.
 
-You can test the production on: https://musicclubwebsite-frontend.onrender.com/
-(It may take a while to work properly because I am using Render's free plan)
+The site is live at: https://www.carletonmusic.ca
+(Initial load may be slow due to Render's free tier)
 
 ### The Music Club Website was designed to:
 
